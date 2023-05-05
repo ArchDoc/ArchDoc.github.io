@@ -11,13 +11,13 @@ export default function DemoSection(): JSX.Element {
             <div className={`text--center padding-horiz--md ${styles.demo}`}>
               <h1>Turn complexity into clarity.</h1>
               <p>
-                Use <a href="/docs/archdoc-ui">ArchDoc UI</a> to view and explore your organization's architecture.
+                Use <a href="docs/archdoc-ui">ArchDoc UI</a> to view and explore your organization's architecture.
               </p>
             </div>
           </div>
           <div className={clsx('col col--7')}>
             <div className="text--center">
-              <img src='/img/archdoc-demo.gif' />
+              <img src='img/archdoc-demo.gif' />
             </div>
           </div>
         </div>
