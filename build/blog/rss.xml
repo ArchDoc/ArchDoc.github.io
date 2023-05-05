@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>ArchDoc Blog</title>
+        <link>https://your-docusaurus-test-site.com/blog</link>
+        <description>ArchDoc Blog</description>
+        <lastBuildDate>Mon, 22 May 2023 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title><![CDATA[ArchDoc Specification v1.0 🎉]]></title>
+            <link>https://your-docusaurus-test-site.com/blog/archdoc-spec-v1_0</link>
+            <guid>https://your-docusaurus-test-site.com/blog/archdoc-spec-v1_0</guid>
+            <pubDate>Mon, 22 May 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[ArchDoc Banner]]></description>
+            <content:encoded><![CDATA[<p><img loading="lazy" alt="ArchDoc Banner" src="/assets/images/archdoc_social_card-553dbe4449d502236b0885360f36eeab.jpg" width="1200" height="675" class="img_ev3q"></p><p>Welcome! The ArchDoc project has just released the launch of the first official version of the ArchDoc Specification.</p><p>The purpose of the ArchDoc project is to define a common, standardized specification to describe software architectures.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="diagram-as-code">Diagram-as-code<a href="#diagram-as-code" class="hash-link" aria-label="Direct link to Diagram-as-code" title="Direct link to Diagram-as-code">​</a></h2><p>In recent years, diagram-as-code tools have been gaining popularity. These tools allow users to quickly generate technical diagrams. More recently, a new suite of diagram-as-code tools amerged. Instead of providing a way to use code to directly generate diagrams, you use an editor to define a model of your software system. From these models, these tools can generate diagrams and visualizations, depending on what the user is intrested in. Some examples of these tools are:</p><ul><li><a href="https://structurizr.com/" target="_blank" rel="noopener noreferrer">Structurizr</a></li><li><a href="https://www.ilograph.com/" target="_blank" rel="noopener noreferrer">Illograph</a></li><li><a href="https://icepanel.io/" target="_blank" rel="noopener noreferrer">Ice Panel</a></li><li><a href="https://carbide.dev/" target="_blank" rel="noopener noreferrer">Carbide</a></li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-archdoc">Why ArchDoc?<a href="#why-archdoc" class="hash-link" aria-label="Direct link to Why ArchDoc?" title="Direct link to Why ArchDoc?">​</a></h2><p>So, then why choose ArchDoc?</p><p>I believe in creating a completely open-source way to model software systems. Instead of locking an organization into using a specific web editor tool and charging licenses, ArchDoc allows anyone to model a system architecture for free.</p><p>The goal is to make the ArchDoc Specification a community-driven standard that can be ammended and udpated as needed. This allows both open-source and closed-source tools to build tooling to support it.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="final-words">Final Words<a href="#final-words" class="hash-link" aria-label="Direct link to Final Words" title="Direct link to Final Words">​</a></h2><p>I understand that ArchDoc is still a young project, but I am hopeful that the community will grow and help define a standardized way of modeling large, enterprise-level software systems. Please consider joining this effort!</p>]]></content:encoded>
+            <category>archdoc</category>
+            <category>announcement</category>
+        </item>
+    </channel>
+</rss>
