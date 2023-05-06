@@ -48,18 +48,6 @@ const config = {
     ],
   ],
 
-  // plugins: [
-  //   [
-  //     '@docusaurus/plugin-content-docs',
-  //     {
-  //       id: 'spec',
-  //       path: 'spec',
-  //       routeBasePath: 'spec',
-  //       sidebarPath: require.resolve('./sidebarsSpec.js'),
-  //     },
-  //   ]
-  // ],
-
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -133,7 +121,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} ArchDoc. Built with Docusaurus.`,
+        copyright: `All Rights Reserved. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

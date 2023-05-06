@@ -32,7 +32,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="ArchDoc is a community-driven project aimed at defining a standardized way to describe software architectures.">
       <HomepageHeader />
       <main>
         <DemoSection />
