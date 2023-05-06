@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[173],{8374:c=>{c.exports=JSON.parse('[{"label":"archdoc","permalink":"/archdoc-spec/blog/tags/archdoc","count":1},{"label":"announcement","permalink":"/archdoc-spec/blog/tags/announcement","count":1}]')}}]);

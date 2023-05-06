@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"ArchDoc Specification v1.0 \ud83c\udf89","permalink":"/archdoc-spec/blog/archdoc-spec-v1_0"}]}')}}]);
