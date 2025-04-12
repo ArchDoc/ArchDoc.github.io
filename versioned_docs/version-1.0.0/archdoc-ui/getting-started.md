@@ -37,7 +37,7 @@ users:
       ui: "Posts blog articles"
     documentation: "The admin user that posts articles."
 
-services:
+components:
   ui:
     description: "The frontend application that serves the application users"
     repository: "https://github.com/example/myblogui"
