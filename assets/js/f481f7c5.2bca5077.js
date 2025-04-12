@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[137],{893:e=>{e.exports=JSON.parse('{"title":"Schemas","slug":"/category/schemas","permalink":"/docs/next/category/schemas","navigation":{"previous":{"title":"Definitions","permalink":"/docs/next/specification/definitions"},"next":{"title":"ArchDoc","permalink":"/docs/next/specification/schemas/archdoc"}}}')}}]);
