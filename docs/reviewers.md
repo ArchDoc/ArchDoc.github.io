@@ -9,21 +9,23 @@ A diff shows which lines changed. It doesn't show that those lines sit on the ch
 
 ## What the comment says
 
-On every pull request, the Action posts one comment and keeps it up to date. It leads with Mermaid diagrams, which GitHub renders natively:
+On every pull request, the Action posts one comment and keeps it up to date. It's built for the few seconds a reviewer gives a bot comment, so it leads with a verdict:
 
-- a diagram of the change: the elements it touches and the model changes, colored added, changed, or removed, with suggested facts dotted and unchanged neighbors in grey
-- a sequence diagram of each of the most important journeys it affects, with the steps that pass through the change highlighted
+```
+⛔ ArchDoc: 1 blocking issue · 2 critical journeys · 3 teams to ask
+```
 
-Below them:
+Then, in order:
 
-- with a [landscape](./landscape.md) synced, consumers in other repositories, marked when the change breaks them (an element they use is removed, or a contract they use `via`), and their journeys
-- the elements the change touches, and their owners
-- the journeys and actors it affects, critical ones first
-- what changed in the model, and facts an agent suggested that need a person's review
-- data the change touches: entries, mappings and decisions (with their expressions before and after), and sensitive data that goes somewhere new, external services first
-- drift the change introduced: imports the model doesn't declare, and broken rules
+- **What blocks the merge**, each with how to fix it and the line it's about: errors the change introduces, such as a broken rule or an import the model doesn't declare, and consumers in other repositories it breaks.
+- **To check**: new warnings, sensitive data going somewhere new, a changed decision and the journeys that decide with it, consumers elsewhere that may be affected, and facts an agent suggested.
+- **Before merging**: a checklist of who to involve. Owners approve, other repositories' teams know, and critical journeys still work. Boxes ticked stay ticked when the comment updates.
+- **What changed**: a Mermaid diagram of only the elements and arrows that changed, and a link to the change in the [explorer](./explorer.md) when you set `explorer-url`.
+- Folded below: the affected journeys as sequence diagrams, with branches drawn as branches; consumers in other repositories; data; drift; model changes; and findings already on the base.
 
-The same report goes to the job summary. The job fails when the pull request introduces drift at the severity you choose. Drift that was already there is listed separately and doesn't fail it.
+When a pull request doesn't change the architecture, the Action stays quiet: no new comment. When it fixes a bug traced in `.archdoc/traces/`, the comment says which one.
+
+The findings the pull request introduces also show on the lines they're about, in Files changed. The same report goes to the job summary. The job fails when the pull request introduces drift at the severity you choose. A finding counts as introduced only when the merge base, checked the same way, didn't have it.
 
 ## Set it up
 
