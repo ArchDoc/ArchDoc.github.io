@@ -129,7 +129,7 @@ logic:
       - else: needs-finance-approval
 ```
 
-With data in the model, `archdoc lineage Refund.amount_cents` lists every place a value is copied or derived and the tables it lands in, and `archdoc simulate refund --sample request.json` runs a journey against a sample request: the branch each decision takes and why, and the records each step creates and changes.
+With data in the model, `archdoc show Refund.amount_cents` lists every place a value is copied or derived and the tables it lands in, and `archdoc show refund --sample request.json` runs a journey against a sample request: the branch each decision takes and why, and the records each step creates and changes.
 
 ## Rules
 
@@ -145,7 +145,7 @@ rules:
 
 ## Who wrote what
 
-Every fact can say where it came from with `provenance`: `declared` (written by a person, the default), `inferred` (found by an analyzer), or `suggested` (proposed by an agent and not yet accepted). Suggested facts show dashed in the explorer and are listed in the pull request report until a person accepts them.
+Every fact can say where it came from with `provenance`: `declared` (written by a person, the default), `inferred` (found by `archdoc init` or an analyzer), or `suggested` (proposed by an agent and not yet accepted). Inferred and suggested facts show dotted in the explorer and are listed in the pull request report as facts to review until a person accepts them by removing the `provenance` block.
 
 ```yaml
 uses:

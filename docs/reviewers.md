@@ -18,12 +18,24 @@ On every pull request, the Action posts one comment and keeps it up to date. It'
 Then, in order:
 
 - **What blocks the merge**, each with how to fix it and the line it's about: errors the change introduces, such as a broken rule or an import the model doesn't declare, and consumers in other repositories it breaks.
-- **To check**: new warnings, sensitive data going somewhere new, a changed decision and the journeys that decide with it, consumers elsewhere that may be affected, and facts an agent suggested.
+- **To check**: new warnings, sensitive data going somewhere new, a changed decision and the journeys that decide with it, consumers elsewhere that may be affected, facts whose code changed under their seal, and facts to review: ones an agent suggested or `archdoc init` inferred, until a person accepts them.
 - **Before merging**: a checklist of who to involve. Owners approve, other repositories' teams know, and critical journeys still work. Boxes ticked stay ticked when the comment updates.
 - **What changed**: a Mermaid diagram of only the elements and arrows that changed, and a link to the change in the [explorer](./explorer.md) when you set `explorer-url`.
 - Folded below: the affected journeys as sequence diagrams, with branches drawn as branches; consumers in other repositories; data; drift; model changes; and findings already on the base.
 
 When a pull request doesn't change the architecture, the Action stays quiet: no new comment. When it fixes a bug traced in `.archdoc/traces/`, the comment says which one.
+
+## Seals
+
+In a repository that keeps `.archdoc/archdoc.sum` (see [Seals](./agents.md#seals-what-to-re-check-when-code-changes)), each model fact carries a fingerprint of the code it points at. When the pull request changes that code, the comment says so under "To check": "**Code changed under the model.**", the fact, what changed (a new file, a renamed export, a schema's new field), and where the fact is in the model. Check that the model still describes the code; the `archdoc seal` command it names records that someone did.
+
+When the author or their agent already checked, the comment says that instead:
+
+```
+Re-checked against changed code by agent:claude-code: `element:payments.charges`, `data:Refund`.
+```
+
+A seal is an attestation, not proof. That line is where to look: the facts named are the ones someone says still hold after the change, so they're worth a glance in the diff of `.archdoc/`.
 
 The findings the pull request introduces also show on the lines they're about, in Files changed. The same report goes to the job summary. The job fails when the pull request introduces drift at the severity you choose. A finding counts as introduced only when the merge base, checked the same way, didn't have it.
 
@@ -88,7 +100,7 @@ The same report is a command away:
 
 ```bash
 archdoc report --base main      # the pull request comment, as markdown
-archdoc check --base main       # only the drift your branch introduced
+archdoc check --base main       # the verdict, and what your branch introduced, each with its fix
 archdoc diff main               # what changed in the model, by element, relationship, actor, and journey
 archdoc view --base main        # the change on the explorer's canvas
 ```

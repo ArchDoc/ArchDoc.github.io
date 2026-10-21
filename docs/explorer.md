@@ -19,6 +19,8 @@ The explorer opens on an **Overview**: what the system does, its journeys as car
 
 On the map, a box's shape says what it is: actors are pills, datastores have a lid, and what lives in another repo is dashed. Click a box to see what it uses, who uses it, and which journeys pass through it; open it to see what's inside, one level at a time. Each element links to its code paths and snippets, down to the lines that hold its logic.
 
+In a repository that keeps [seals](./agents.md#seals-what-to-re-check-when-code-changes), the overview lists the facts whose code changed since someone checked them, a box with any carries a "re-check" mark, and its panel says what changed and which `archdoc seal` to run once the model holds again.
+
 ## Read a journey as a story
 
 The **Journeys** tab draws a journey as lanes, one per participant, with a numbered arrow per step and the data it sends. After a decision, the steps that follow are grouped by outcome, each labelled with its condition, so branches read as branches. The panel beside it shows one step at a time: what it does, between whom and through which contract, the message's fields with their values, the records it writes, and its code.
@@ -35,7 +37,7 @@ The **Traces** tab shows the bugs traced in `.archdoc/traces/`: the error, the d
 
 ## Review a change
 
-The **Changes** tab compares the model on two branches, or a branch and your working tree, and leads with the same verdict as the [pull request comment](./reviewers.md): what blocks the merge and how to fix it, what to check, who to ask before merging, the journeys affected (other repos' too), elements and uses, data, and facts an agent suggested. On the map, new and changed boxes are marked, removed ones appear as ghosts, and suggested facts are dotted.
+The **Changes** tab compares the model on two branches, or a branch and your working tree, and leads with the same verdict as the [pull request comment](./reviewers.md): what blocks the merge and how to fix it, what to check, who to ask before merging, the journeys affected (other repos' too), elements and uses, data, and facts to review (suggested by an agent, or inferred by `archdoc init`). On the map, new and changed boxes are marked, removed ones appear as ghosts, and facts to review are dotted.
 
 ```bash
 archdoc view --base main
