@@ -88,4 +88,4 @@ For editor validation, `archdoc schema -o archdoc.schema.json` writes the JSON S
 | `archdoc migrate <file>` | Convert a v0 or v1 model to v2 |
 | `archdoc schema` | Print the JSON Schema for model files |
 
-Most commands take `--json` for scripts and agents. `search`, `locate`, `impact`, `lineage`, `simulate`, `verify`, and `trace anchor/check/show` still work for a release, and say which command they're now part of.
+Most commands take `--json` for scripts and agents.
