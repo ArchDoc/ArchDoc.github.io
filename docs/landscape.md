@@ -59,7 +59,7 @@ Then run `archdoc sync` there. From then on:
 
 - owners resolve against the landscape's teams, so `owners: [payments-team]` needs no local copy
 - the landscape's rules marked `scope: org` run in the repository's `archdoc check`
-- `archdoc impact`, `archdoc show`, and the MCP tools list consumers and journeys in other repositories
+- `archdoc context`, `archdoc show`, and the MCP tools list consumers and journeys in other repositories
 - the pull request comment says which consumers a change breaks, before it merges
 
 ## Try it

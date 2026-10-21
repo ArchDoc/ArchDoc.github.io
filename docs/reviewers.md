@@ -18,7 +18,7 @@ On every pull request, the Action posts one comment and keeps it up to date. It'
 Then, in order:
 
 - **What blocks the merge**, each with how to fix it and the line it's about: errors the change introduces, such as a broken rule or an import the model doesn't declare, and consumers in other repositories it breaks.
-- **To check**: new warnings, sensitive data going somewhere new, a changed decision and the journeys that decide with it, consumers elsewhere that may be affected, facts whose code changed under their seal, and facts an agent suggested.
+- **To check**: new warnings, sensitive data going somewhere new, a changed decision and the journeys that decide with it, consumers elsewhere that may be affected, facts whose code changed under their seal, and facts to review: ones an agent suggested or `archdoc init` inferred, until a person accepts them.
 - **Before merging**: a checklist of who to involve. Owners approve, other repositories' teams know, and critical journeys still work. Boxes ticked stay ticked when the comment updates.
 - **What changed**: a Mermaid diagram of only the elements and arrows that changed, and a link to the change in the [explorer](./explorer.md) when you set `explorer-url`.
 - Folded below: the affected journeys as sequence diagrams, with branches drawn as branches; consumers in other repositories; data; drift; model changes; and findings already on the base.
@@ -100,7 +100,7 @@ The same report is a command away:
 
 ```bash
 archdoc report --base main      # the pull request comment, as markdown
-archdoc check --base main       # only the drift your branch introduced
+archdoc check --base main       # the verdict, and what your branch introduced, each with its fix
 archdoc diff main               # what changed in the model, by element, relationship, actor, and journey
 archdoc view --base main        # the change on the explorer's canvas
 ```

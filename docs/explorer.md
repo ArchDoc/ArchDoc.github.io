@@ -37,7 +37,7 @@ The **Traces** tab shows the bugs traced in `.archdoc/traces/`: the error, the d
 
 ## Review a change
 
-The **Changes** tab compares the model on two branches, or a branch and your working tree, and leads with the same verdict as the [pull request comment](./reviewers.md): what blocks the merge and how to fix it, what to check, who to ask before merging, the journeys affected (other repos' too), elements and uses, data, and facts an agent suggested. On the map, new and changed boxes are marked, removed ones appear as ghosts, and suggested facts are dotted.
+The **Changes** tab compares the model on two branches, or a branch and your working tree, and leads with the same verdict as the [pull request comment](./reviewers.md): what blocks the merge and how to fix it, what to check, who to ask before merging, the journeys affected (other repos' too), elements and uses, data, and facts to review (suggested by an agent, or inferred by `archdoc init`). On the map, new and changed boxes are marked, removed ones appear as ghosts, and facts to review are dotted.
 
 ```bash
 archdoc view --base main
