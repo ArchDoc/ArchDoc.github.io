@@ -79,6 +79,7 @@ For editor validation, `archdoc schema -o archdoc.schema.json` writes the JSON S
 | `archdoc impact <element-or-path>` | What depends on it, and which actors, journeys, owners, and rules a change affects |
 | `archdoc map` | How the repository's files map onto the model, and which files no element claims |
 | `archdoc check` | Drift: dependencies the model doesn't declare, broken rules and journeys, code paths that match nothing. `--base main` marks what your change introduced |
+| `archdoc verify`, `archdoc seal` | Which model facts point at code that changed since someone checked them; `seal` records that you did. Opt-in with `archdoc seal --all` |
 | `archdoc diff <ref>` | What changed in the model, by element, relationship, actor, and journey |
 | `archdoc report --base main` | Your branch's architectural impact, as markdown for a pull request |
 | `archdoc lineage <Entry.field>` | Every place a field's value is copied or derived, and where it's stored |

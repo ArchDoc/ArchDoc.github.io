@@ -17,8 +17,9 @@ The skill and the `AGENTS.md` snippet teach agents the same loop:
 2. **Check the impact.** `archdoc_impact` on the element, or on the files it plans to change or create, lists what depends on them, the affected journeys and actors (critical first), owners, and the rules that mention them. With a [landscape](./landscape.md) synced, it also lists who uses them from other repositories.
 3. **Say what it affects.** The agent names the affected journeys and actors in its plan, and asks you first when a critical journey is involved or the change would break a rule.
 4. **Edit, then check for drift.** `archdoc_check` with base `main` reports what the change introduced: imports the model doesn't declare, broken rules and journeys, stale code paths. The agent fixes those, or removes a dependency it didn't mean to add.
-5. **Propose the model changes.** When the change adds a component or a dependency on purpose, `archdoc_propose` adds it to `.archdoc/` as a suggestion for a person to review.
-6. **Read the verdict before opening a PR.** `archdoc_report` gives the verdict the [pull request comment](./reviewers.md) will give, with what blocks the merge and how to fix it.
+5. **Re-check the facts whose code changed.** In a repository that keeps `.archdoc/archdoc.sum`, `archdoc_verify` lists the model facts whose code changed since someone last checked them, what changed, and where each fact is in the model. The agent updates the model where it no longer describes the code, then seals what it checked with `archdoc_seal`, so the PR comment says who checked. It never seals a fact it hasn't read. See [Seals](#seals-what-to-re-check-when-code-changes).
+6. **Propose the model changes.** When the change adds a component or a dependency on purpose, `archdoc_propose` adds it to `.archdoc/` as a suggestion for a person to review.
+7. **Read the verdict before opening a PR.** `archdoc_report` gives the verdict the [pull request comment](./reviewers.md) will give, with what blocks the merge and how to fix it.
 
 `archdoc_locate` tells it which element owns any file, including files that don't exist yet.
 
@@ -50,7 +51,7 @@ Add the [`AGENTS.md` snippet](https://github.com/ArchDoc/archdoc/blob/main/integ
 
 ## The MCP tools
 
-Every tool reloads the model on every call, so answers follow your edits. All of them are read-only except `archdoc_propose`, which only adds.
+Every tool reloads the model on every call, so answers follow your edits. All of them are read-only except `archdoc_propose`, which only adds, and `archdoc_seal`, which writes only `.archdoc/archdoc.sum`.
 
 | Tool | Answers |
 |---|---|
@@ -72,6 +73,8 @@ Every tool reloads the model on every call, so answers follow your edits. All of
 | `archdoc_report` | What will the PR comment say about my change? |
 | `archdoc_anchor` | Which journey step did this error show up in? With a trace to start from |
 | `archdoc_trace_check` | Is this trace sound? Elements, hops, code references |
+| `archdoc_verify` | Which model facts point at code that changed since they were sealed? |
+| `archdoc_seal` | Record that the agent checked these facts against their code (writes only `archdoc.sum`) |
 | `archdoc_propose` | Add elements and relationships as suggestions |
 
 ## Suggestions, not silent edits
@@ -79,6 +82,35 @@ Every tool reloads the model on every call, so answers follow your edits. All of
 `archdoc_propose` adds elements and relationships marked `provenance: { source: suggested, by: agent:<name> }`, keeps the files' formatting, and writes a one-line rationale to `.archdoc/proposals/`. It never changes or removes what's there, never edits another repository's namespace, and writes nothing that wouldn't validate. `dryRun` checks a proposal without writing it.
 
 Suggested facts show dashed in the explorer and are listed in the [pull request report](./reviewers.md) under "needs a person's review", so the model stays human-owned even when agents write most of the code.
+
+## Seals: what to re-check when code changes
+
+Code changes faster than anyone remembers which parts of the model describe it: a file is added, an export renamed, a decision's threshold changed, a schema grows a field. Expecting an agent to find every fact a change touched doesn't work. Seals tell it.
+
+`archdoc seal --all` records a fingerprint of the code each model fact points at in `.archdoc/archdoc.sum`. Commit it, like a lockfile. Each kind of fact is fingerprinted by what would make it untrue, so edits that leave it true don't break its seal:
+
+| Fact | Fingerprint | Breaks when |
+|---|---|---|
+| An element's `code:` paths | the files it owns and the names they export | a file is added or removed, an export is renamed or added; not when a function body changes |
+| A snippet (`symbol:` or `lines:`), a decision's or a mapping's `code:` | the lines, without comments and whitespace | the lines change |
+| A journey step's `code:` | its entry file's exports | the entry point is renamed or gone |
+| A data entry's `source:` | the schema's fields and types | a field is added, removed, or retyped |
+| A contract (`provides: api: proto/charges.proto`) | the spec file | the spec changes |
+
+When the code under a fact changes, `archdoc verify` (or `archdoc_verify`) says which fact, where it is in the model, and what changed:
+
+```
+1 fact to check: the code changed since it was sealed.
+
+contract proto/charges.proto of charges (.archdoc/archdoc.yaml:18)
+  points at proto/charges.proto
+  proto/charges.proto changed (34 → 35 lines)
+  → archdoc seal contract:charges#proto/charges.proto
+```
+
+The agent reads the change, updates the model if it no longer holds (here, the contract's description now misses an RPC), and runs `archdoc seal <fact> --by agent:<name>`, or `archdoc seal <element-id>` for all of an element's facts. Without facts, `archdoc seal` seals only new ones and keeps changed ones flagged, so nothing gets waved through by accident.
+
+A seal says someone checked; it isn't proof they were right. That's why the [pull request comment](./reviewers.md#seals) lists the facts a change sealed again and who sealed them, and lists any it left unchecked under "To check". Seals are opt-in: nothing happens until a repository has an `archdoc.sum`.
 
 ## Explaining a bug
 
