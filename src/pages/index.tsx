@@ -102,10 +102,13 @@ journeys:
       - { from: passenger, to: mobile-app, action: Enters destination }
       - { from: mobile-app, to: api-gateway, action: POST /trips }`;
 
-const quickStart = `git clone https://github.com/ArchDoc/archdoc.git
-cd archdoc
-pnpm install && pnpm build
-pnpm playground --open`;
+const quickStart = `# In Claude Code
+/plugin marketplace add ArchDoc/archdoc
+/plugin install archdoc@archdoc
+
+# Anywhere, with Node.js 22.12 or later
+npx -y @archdoc/cli init    # start a model in this repository
+npx -y @archdoc/cli view    # open it in the explorer`;
 
 function Hero() {
   return (
@@ -113,13 +116,14 @@ function Hero() {
       <div className="container">
         <p className={styles.eyebrow}>ArchDoc</p>
         <h1 className={styles.headline}>
-          An architecture control plane for AI-assisted development
+          Architecture your AI agents can read, and your PRs can't quietly break
         </h1>
         <p className={styles.lede}>
           Keep a model of your system next to the code, owned by the people who
-          build it. ArchDoc tells your coding agent where a change belongs, tells
-          reviewers which journeys it affects, and shows everyone how the system
-          fits together.
+          build it. Your coding agent reads it before it edits, so it knows where
+          a change belongs and what it affects. Every pull request is checked
+          against it, so a change that breaks a rule or sends personal data
+          somewhere new doesn't merge unnoticed.
         </p>
         <div className={styles.buttons}>
           <Link className="button button--primary button--lg" to="/docs/getting-started">
@@ -225,18 +229,17 @@ function QuickStart() {
           <div className="col col--6">
             <h2>Try it</h2>
             <p>
-              The packages aren't published yet, so you run ArchDoc from a clone.
-              You need Node.js 22.12 or later and pnpm 10.
+              Install the Claude Code plugin, open a repository, and ask your
+              agent to start an architecture model. It runs{' '}
+              <code>archdoc init</code>, describes what it finds, and checks the
+              result, in one session. From then on, every task starts from the
+              model.
             </p>
             <p>
-              The playground sets up a demo company of four repositories that
-              import each other's models, with a branch for each scenario worth
-              trying, and opens the whole org in the explorer.
-            </p>
-            <p>
-              <Link to="/docs/getting-started">Getting started</Link> covers
-              viewing a single model with <code>archdoc view</code> and adding a
-              model to your own repository.
+              Using Cursor, Codex, or another agent? <Link to="/docs/agents">Agents</Link>{' '}
+              has the MCP config and an <code>AGENTS.md</code> snippet.{' '}
+              <Link to="/docs/getting-started">Getting started</Link> covers the
+              CLI and the explorer.
             </p>
           </div>
           <div className="col col--6">
@@ -266,7 +269,7 @@ function Status() {
 export default function Home(): JSX.Element {
   return (
     <Layout
-      title="An architecture control plane for AI-assisted development"
+      title="Architecture your AI agents can read, and your PRs can't quietly break"
       description="ArchDoc keeps a human-owned architecture model next to the code, and answers what a change affects for coding agents, reviewers, and everyone learning the system.">
       <Hero />
       <main>

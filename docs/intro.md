@@ -6,12 +6,12 @@ description: What ArchDoc is, the problem it solves, and how its parts fit toget
 
 # Introduction
 
-ArchDoc is an architecture control plane for AI-assisted development. It keeps a model of your system next to the code, owned by the people who build it, and answers questions about it the same way for you, for your coding agent, and for your CI.
+ArchDoc is architecture your AI agents can read, and your PRs can't quietly break. It keeps a model of your system next to the code, owned by the people who build it, and answers questions about it the same way for you, for your coding agent, and for your CI.
 
 It's open source (MIT) and lives at [github.com/ArchDoc/archdoc](https://github.com/ArchDoc/archdoc).
 
 :::info Status
-ArchDoc v2 is under active development and its packages aren't published to npm yet. You run it from a clone; [Getting started](./getting-started.md) shows how. The v0 viewer (`@archdoc/archdoc-ui`) is frozen at [`v0.2.0`](https://github.com/ArchDoc/archdoc/releases/tag/v0.2.0) on the [`legacy/v0`](https://github.com/ArchDoc/archdoc/tree/legacy/v0) branch, and its docs are kept under [v0 (legacy)](/docs/v0/archdoc-ui/).
+ArchDoc v2 is under active development. It's on npm as `@archdoc/cli`; [Getting started](./getting-started.md) shows how to run it. The v0 viewer (`@archdoc/archdoc-ui`) is frozen at [`v0.2.0`](https://github.com/ArchDoc/archdoc/releases/tag/v0.2.0) on the [`legacy/v0`](https://github.com/ArchDoc/archdoc/tree/legacy/v0) branch, and its docs are kept under [v0 (legacy)](/docs/v0/archdoc-ui/).
 :::
 
 ## Why
@@ -48,7 +48,7 @@ People and agents reach the engine through the surface that fits the moment:
 | AI coding agents | Before editing | [An MCP server and an agent skill](./agents.md): where does this belong, what depends on it, which rules and journeys apply |
 | Reviewers | Before merging | [A pull request check](./reviewers.md): affected journeys, owners, data changes, consumers in other repos, and drift |
 | Everyone | Anytime | [The explorer](./explorer.md): the hierarchy, actors, journeys, data, and click-through to code |
-| Enterprises | Across teams | [The landscape](./landscape.md): every repository's model composed into one view |
+| Enterprises | Across teams | [The landscape](./landscape.md) (experimental): every repository's model composed into one view |
 
 ## Coming from v0
 

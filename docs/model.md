@@ -129,7 +129,7 @@ logic:
       - else: needs-finance-approval
 ```
 
-With data in the model, `archdoc show Refund.amount_cents` lists every place a value is copied or derived and the tables it lands in, and `archdoc show refund --sample request.json` runs a journey against a sample request: the branch each decision takes and why, and the records each step creates and changes.
+With data in the model, `archdoc show Refund.amount_cents` lists every place a value is copied or derived and the tables it lands in. Running a journey on a sample request (simulation) is experimental, and hidden from the CLI and explorer for now.
 
 ## Rules
 

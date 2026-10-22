@@ -1,11 +1,25 @@
 ---
 title: Getting started
-description: Build ArchDoc from a clone, open the playground, and view a model.
+description: Install the Claude Code plugin or run the CLI with npx, then view a model.
 ---
 
 # Getting started
 
-ArchDoc's packages aren't published to npm yet, so you run it from a clone of the repository.
+In Claude Code, install the plugin, then open a repository and ask Claude to start an architecture model. [Agents](./agents.md) has the setup for Cursor, Codex, and others.
+
+```
+/plugin marketplace add ArchDoc/archdoc
+/plugin install archdoc@archdoc
+```
+
+The CLI is on npm as `@archdoc/cli`. Run it in any repository with Node.js 22.12 or later:
+
+```bash
+npx -y @archdoc/cli init      # start a model for a repository that has none
+npx -y @archdoc/cli view      # open the explorer
+```
+
+To try the playground or work on ArchDoc itself, run it from a clone of the repository, as below.
 
 ## What you need
 
@@ -31,7 +45,6 @@ pnpm playground --open
 
 `.playground/PLAYGROUND.md` lists what to try, including:
 
-- simulating a refund request through the journey that handles it
 - following one field's value across repositories
 - what a pull request is told when it sends personal data to a third party, breaks an API another repository uses, loosens a decision, or renames a classified column
 
@@ -48,7 +61,7 @@ pnpm archdoc view examples/quickstart.yaml --open  # a small online shop, in one
 
 With `--watch`, the explorer updates as you save model files and shows any problems at the top. The [explorer](./explorer.md) page says what you can do in it.
 
-The [`examples/`](https://github.com/ArchDoc/archdoc/tree/main/examples) folder has one model per part of the platform: a quickstart, a modular monolith split into components, an event-driven system, decisions and simulation, a 24-table schema, and sensitive data. Each is a single file you can open with `archdoc view`.
+The [`examples/`](https://github.com/ArchDoc/archdoc/tree/main/examples) folder has one model per part of the platform: a quickstart, a modular monolith split into components, an event-driven system, a 24-table schema, and sensitive data. Each is a single file you can open with `archdoc view`.
 
 ## Use it on your own repository
 
@@ -71,21 +84,21 @@ For editor validation, `archdoc schema -o archdoc.schema.json` writes the JSON S
 
 | Command | What it does |
 |---|---|
-| `archdoc view` | Open the explorer. `--watch` reloads on save, `--base main` compares with a branch, `--landscape` shows every synced repository |
+| `archdoc view` | Open the explorer. `--watch` reloads on save, `--base main` compares with a branch |
 | `archdoc validate` | Check the schema, every reference, and every journey step against the declared relationships |
 | `archdoc init` | Start a model for a repository that has none, from its manifests, compose files, imports, and schema files |
 | `archdoc context <words or paths>` | Where to start a task: files and functions to open, the data, rules, and journeys involved, tests, owners, and who uses it. `--error <file>` places an error; with nothing, an overview |
-| `archdoc show <id>` | One thing by ID: element (`--code` for its snippets), actor, journey (`--sample <file>` runs it), data entry, `Entry.field` (its lineage), trace, or sealed fact |
+| `archdoc show <id>` | One thing by ID: element (`--code` for its snippets), actor, journey, data entry, `Entry.field` (its lineage), trace, or sealed fact |
 | `archdoc map` | How the repository's files map onto the model, and which files no element claims |
 | `archdoc check` | What's wrong or stale: model problems, dependencies the model doesn't declare, broken rules and journeys, stale code paths, traces, and sealed facts whose code changed. `--base main` says what your change does, with the PR comment's verdict |
 | `archdoc seal <fact>` | Record that a fact still describes its code. `archdoc seal --all` starts sealing; `archdoc check --seals` lists what to re-check |
 | `archdoc diff <ref>` | What changed in the model, by element, relationship, actor, and journey |
 | `archdoc report --base main` | Your branch's architectural impact, as markdown for a pull request |
-| `archdoc sync` | Pin imported repositories' models in `archdoc.lock` |
-| `archdoc publish <version>` | Write the bundle other repositories import |
-| `archdoc landscape build` | In a landscape repository: check the composed model and write the explorer as a static site |
+| `archdoc sync` | [Experimental](./landscape.md): pin imported repositories' models in `archdoc.lock` |
+| `archdoc publish <version>` | [Experimental](./landscape.md): write the bundle other repositories import |
+| `archdoc landscape build` | [Experimental](./landscape.md): in a landscape repository, check the composed model and write the explorer as a static site |
 | `archdoc mcp` | Start the MCP server for coding agents |
 | `archdoc migrate <file>` | Convert a v0 or v1 model to v2 |
 | `archdoc schema` | Print the JSON Schema for model files |
 
-Most commands take `--json` for scripts and agents. `search`, `locate`, `impact`, `lineage`, `simulate`, `verify`, and `trace anchor/check/show` still work for a release, and say which command they're now part of.
+Most commands take `--json` for scripts and agents.

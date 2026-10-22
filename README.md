@@ -1,6 +1,6 @@
 # ArchDoc website
 
-The source of [archdoc.github.io](https://archdoc.github.io), the website and docs for [ArchDoc](https://github.com/ArchDoc/archdoc): an architecture control plane for AI-assisted development. It's built with [Docusaurus 2](https://docusaurus.io/).
+The source of [archdoc.github.io](https://archdoc.github.io), the website and docs for [ArchDoc](https://github.com/ArchDoc/archdoc): architecture your AI agents can read, and your PRs can't quietly break. It's built with [Docusaurus 2](https://docusaurus.io/).
 
 ## What's where
 

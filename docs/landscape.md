@@ -5,6 +5,10 @@ description: Share models across repositories, and compose every team's model in
 
 # Landscape
 
+:::caution Experimental
+Sharing models across repositories works, but it's experimental: `sync`, `publish`, `landscape build`, and `view --landscape` are left out of `archdoc --help` and may change before they're stable. See [Experimental](https://github.com/ArchDoc/archdoc/blob/main/docs/experimental.md).
+:::
+
 Most systems span more than one repository. In ArchDoc, each repository owns a namespace and models its own part. Repositories import each other's models, and a landscape repository composes all of them into one view of the organization.
 
 ## Import another team's model

@@ -25,7 +25,7 @@ In a repository that keeps [seals](./agents.md#seals-what-to-re-check-when-code-
 
 The **Journeys** tab draws a journey as lanes, one per participant, with a numbered arrow per step and the data it sends. After a decision, the steps that follow are grouped by outcome, each labelled with its condition, so branches read as branches. The panel beside it shows one step at a time: what it does, between whom and through which contract, the message's fields with their values, the records it writes, and its code.
 
-"Try a sample" runs the journey on a sample in your browser (one named after it, a file in `samples/`, or example data from each field's type) and fades the branches it doesn't take. "Show on map" plays it on the system map instead.
+"Show on map" plays it on the system map instead.
 
 ## Follow the data
 
