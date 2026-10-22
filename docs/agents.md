@@ -14,7 +14,7 @@ ArchDoc doesn't run an LLM of its own. Your agent does the reasoning; ArchDoc gi
 | Tool | Question | CLI |
 |---|---|---|
 | `archdoc_context` | Where do I start, and what does it affect? From the task in words, the files to change (even ones that don't exist yet), or an error. With nothing, an overview | `archdoc context` |
-| `archdoc_show` | What is this one thing? An element (with its code), actor, journey (with a sample, run on it), data entry, `Entry.field` (its lineage), trace, or sealed fact | `archdoc show <id>` |
+| `archdoc_show` | What is this one thing? An element (with its code), actor, journey, data entry, `Entry.field` (its lineage), trace, or sealed fact | `archdoc show <id>` |
 | `archdoc_check` | What's wrong or stale? With a base, what does my change do: the verdict the [pull request comment](./reviewers.md) will give, each finding with its fix | `archdoc check --base main` |
 | `archdoc_seal` | I checked these facts against their code. Says what's left | `archdoc seal <fact>` |
 | `archdoc_init` | There's no model yet: start one | `archdoc init` |
