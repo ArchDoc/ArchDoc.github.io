@@ -35,29 +35,44 @@ For the PR description, `archdoc_check` with `format: "markdown"` returns the co
 
 ## Set up Claude Code
 
-From a built clone of ArchDoc (see [Getting started](./getting-started.md)):
+Install the plugin. It brings the skill and the MCP server, pinned to the CLI version released with it:
 
-1. Add the MCP server to `.mcp.json` at your repository's root:
+```
+/plugin marketplace add ArchDoc/archdoc
+/plugin install archdoc@archdoc
+```
 
-   ```json
-   {
-     "mcpServers": {
-       "archdoc": {
-         "command": "node",
-         "args": ["/path/to/archdoc/packages/cli/dist/bin.js", "mcp"]
-       }
-     }
-   }
-   ```
+Then open a repository and start a task. In a repository with no `.archdoc/`, ask Claude to start an architecture model: it runs `archdoc_init`, describes what it finds, and runs `archdoc_check` until it's clean. The MCP server runs `npx -y @archdoc/cli@<version> mcp` in the repository Claude Code is open in, so it needs Node.js 22.12 or later.
 
-   Once the packages are published, this becomes `npx -y @archdoc/cli mcp`.
+To set up one repository without the plugin, copy the [skill](https://github.com/ArchDoc/archdoc/tree/main/integrations/claude-plugin/skills/archdoc) to `.claude/skills/archdoc/`, and add the server to `.mcp.json` at the repository's root:
 
-2. Copy the skill from [`integrations/agent-skills/claude-code/archdoc/`](https://github.com/ArchDoc/archdoc/tree/main/integrations/agent-skills/claude-code/archdoc) to `.claude/skills/archdoc/`.
-3. Optionally, add the [`AGENTS.md` snippet](https://github.com/ArchDoc/archdoc/blob/main/integrations/agent-skills/AGENTS.md) to your `CLAUDE.md` or `AGENTS.md`, so the workflow is always in context.
+```json
+{
+  "mcpServers": {
+    "archdoc": {
+      "command": "npx",
+      "args": ["-y", "@archdoc/cli", "mcp"]
+    }
+  }
+}
+```
+
+Optionally, add the [`AGENTS.md` snippet](https://github.com/ArchDoc/archdoc/blob/main/integrations/agent-skills/AGENTS.md) to your `CLAUDE.md` or `AGENTS.md`, so the workflow is always in context.
 
 ## Set up other agents
 
-Add the [`AGENTS.md` snippet](https://github.com/ArchDoc/archdoc/blob/main/integrations/agent-skills/AGENTS.md) to your repository's `AGENTS.md`, which Codex, Cursor, Copilot, and others read. If the agent supports MCP, register `archdoc mcp` as a stdio server; there's a [Cursor config](https://github.com/ArchDoc/archdoc/blob/main/integrations/agent-skills/mcp/cursor.mcp.json) to start from. If it doesn't, it can run the same queries through the CLI with `--json`.
+1. Paste the [`AGENTS.md` snippet](https://github.com/ArchDoc/archdoc/blob/main/integrations/agent-skills/AGENTS.md) near the top of your repository's `AGENTS.md`. Codex, Cursor, Copilot, and others read it.
+2. Register the MCP server, which runs `npx -y @archdoc/cli mcp` in the repository:
+   - **Cursor:** copy the [Cursor config](https://github.com/ArchDoc/archdoc/blob/main/integrations/agent-skills/mcp/cursor.mcp.json) to `.cursor/mcp.json`.
+   - **Codex:** add it to `~/.codex/config.toml`:
+
+     ```toml
+     [mcp_servers.archdoc]
+     command = "npx"
+     args = ["-y", "@archdoc/cli", "mcp"]
+     ```
+
+   - **Anything else with MCP:** a stdio server with that command. Without MCP, the agent can run the CLI instead: each tool is a command of the same name, with `--json` where it needs structure.
 
 ## Edit the model with the code
 

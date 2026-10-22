@@ -1,11 +1,18 @@
 ---
 title: Getting started
-description: Build ArchDoc from a clone, open the playground, and view a model.
+description: Install the Claude Code plugin or run the CLI with npx, then view a model.
 ---
 
 # Getting started
 
-ArchDoc is on npm as `@archdoc/cli`. Run it in any repository with Node.js 22.12 or later:
+In Claude Code, install the plugin, then open a repository and ask Claude to start an architecture model. [Agents](./agents.md) has the setup for Cursor, Codex, and others.
+
+```
+/plugin marketplace add ArchDoc/archdoc
+/plugin install archdoc@archdoc
+```
+
+The CLI is on npm as `@archdoc/cli`. Run it in any repository with Node.js 22.12 or later:
 
 ```bash
 npx -y @archdoc/cli init      # start a model for a repository that has none

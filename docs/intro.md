@@ -6,7 +6,7 @@ description: What ArchDoc is, the problem it solves, and how its parts fit toget
 
 # Introduction
 
-ArchDoc is an architecture control plane for AI-assisted development. It keeps a model of your system next to the code, owned by the people who build it, and answers questions about it the same way for you, for your coding agent, and for your CI.
+ArchDoc is architecture your AI agents can read, and your PRs can't quietly break. It keeps a model of your system next to the code, owned by the people who build it, and answers questions about it the same way for you, for your coding agent, and for your CI.
 
 It's open source (MIT) and lives at [github.com/ArchDoc/archdoc](https://github.com/ArchDoc/archdoc).
 

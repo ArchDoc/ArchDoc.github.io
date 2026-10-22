@@ -9,7 +9,7 @@ const repo = 'https://github.com/ArchDoc/archdoc';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'ArchDoc',
-  tagline: 'An architecture control plane for AI-assisted development.',
+  tagline: "Architecture your AI agents can read, and your PRs can't quietly break.",
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
