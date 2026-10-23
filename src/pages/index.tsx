@@ -259,7 +259,7 @@ function Status() {
           ArchDoc v2 is under active development. The v0 viewer is frozen at{' '}
           <Link href={`${repo}/releases/tag/v0.2.0`}>v0.2.0</Link> on the{' '}
           <Link href={`${repo}/tree/legacy/v0`}>legacy/v0</Link> branch, and its
-          docs are kept as <Link to="/docs/v0/archdoc-ui/">v0 (legacy)</Link>.
+          docs are <Link to="/v0">archived</Link>.
         </p>
       </div>
     </section>

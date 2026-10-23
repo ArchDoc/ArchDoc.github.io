@@ -11,7 +11,7 @@ ArchDoc is architecture your AI agents can read, and your PRs can't quietly brea
 It's open source (MIT) and lives at [github.com/ArchDoc/archdoc](https://github.com/ArchDoc/archdoc).
 
 :::info Status
-ArchDoc v2 is under active development. It's on npm as `@archdoc/cli`; [Getting started](./getting-started.md) shows how to run it. The v0 viewer (`@archdoc/archdoc-ui`) is frozen at [`v0.2.0`](https://github.com/ArchDoc/archdoc/releases/tag/v0.2.0) on the [`legacy/v0`](https://github.com/ArchDoc/archdoc/tree/legacy/v0) branch, and its docs are kept under [v0 (legacy)](/docs/v0/archdoc-ui/).
+ArchDoc v2 is under active development. It's on npm as `@archdoc/cli`; [Getting started](./getting-started.md) shows how to run it. The v0 viewer (`@archdoc/archdoc-ui`) is frozen at [`v0.2.0`](https://github.com/ArchDoc/archdoc/releases/tag/v0.2.0) on the [`legacy/v0`](https://github.com/ArchDoc/archdoc/tree/legacy/v0) branch, and its docs are [archived](/v0).
 :::
 
 ## Why
