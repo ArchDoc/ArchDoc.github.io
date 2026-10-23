@@ -38,20 +38,6 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/ArchDoc/ArchDoc.github.io/edit/main/',
-          // The current docs describe v2. The 1.0.0 version holds the v0 viewer
-          // and the v1.0 specification, kept as the legacy docs.
-          lastVersion: 'current',
-          versions: {
-            current: {
-              label: 'v2',
-              path: '',
-            },
-            '1.0.0': {
-              label: 'v0 (legacy)',
-              path: 'v0',
-              banner: 'unmaintained',
-            },
-          },
         },
         blog: {
           showReadingTime: true,
@@ -69,14 +55,21 @@ const config = {
     [
       '@docusaurus/plugin-client-redirects',
       {
-        // The v0 docs used to live at /docs/archdoc-ui and /docs/specification.
-        // Keep those links working by sending them to /docs/v0/.
+        // The v0 docs are archived (src/pages/v0.md). Their old addresses,
+        // under /docs/v0/ and before that /docs/, go to the page that says where.
         createRedirects(existingPath) {
-          const legacy = /^\/docs\/v0\/(archdoc-ui|specification|category)(\/|$)/;
-          if (legacy.test(existingPath)) {
-            return [existingPath.replace('/docs/v0/', '/docs/')];
-          }
-          return undefined;
+          if (existingPath !== '/v0') return undefined;
+          const pages = [
+            'archdoc-ui',
+            'archdoc-ui/getting-started',
+            'category/schemas',
+            'specification',
+            'specification/definitions',
+            'specification/schemas/archdoc',
+            'specification/schemas/component',
+            'specification/schemas/user',
+          ];
+          return pages.flatMap((p) => [`/docs/v0/${p}`, `/docs/${p}`]);
         },
       },
     ],
@@ -108,10 +101,6 @@ const config = {
           {to: '/docs/getting-started', label: 'Getting started', position: 'left'},
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            type: 'docsVersionDropdown',
-            position: 'right',
-          },
-          {
             href: repo,
             label: 'GitHub',
             position: 'right',
@@ -127,7 +116,7 @@ const config = {
               {label: 'Introduction', to: '/docs/'},
               {label: 'Getting started', to: '/docs/getting-started'},
               {label: 'The model', to: '/docs/model'},
-              {label: 'v0 docs (legacy)', to: '/docs/v0/archdoc-ui/'},
+              {label: 'v0 docs (archived)', to: '/v0'},
             ],
           },
           {
