@@ -62,7 +62,8 @@ Optionally, add the [`AGENTS.md` snippet](https://github.com/ArchDoc/archdoc/blo
 ## Set up other agents
 
 1. Paste the [`AGENTS.md` snippet](https://github.com/ArchDoc/archdoc/blob/main/integrations/agent-skills/AGENTS.md) near the top of your repository's `AGENTS.md`. Codex, Cursor, Copilot, and others read it.
-2. Register the MCP server, which runs `npx -y @archdoc/cli mcp` in the repository:
+2. Copy the [skill](https://github.com/ArchDoc/archdoc/tree/main/integrations/claude-plugin/skills/archdoc) to `.agents/skills/archdoc/` in your repository. Codex looks for skills there, not in `.claude/skills/` or the Claude Code plugin cache.
+3. Register the MCP server, which runs `npx -y @archdoc/cli mcp` in the repository:
    - **Cursor:** copy the [Cursor config](https://github.com/ArchDoc/archdoc/blob/main/integrations/agent-skills/mcp/cursor.mcp.json) to `.cursor/mcp.json`.
    - **Codex:** add it to `~/.codex/config.toml`:
 
