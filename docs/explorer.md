@@ -17,7 +17,7 @@ With `--watch`, it updates as you save model files and shows any problems at the
 
 The explorer opens on an **Overview**: what the system does, its journeys as cards (most important first, each with the path it takes and how many steps, repos, and decisions it has), and who owns what, beside a map of the top level. Hover a journey to light its path on the map.
 
-On the map, a box's shape says what it is: actors are pills, datastores have a lid, and what lives in another repo is dashed. Click a box to see what it uses, who uses it, and which journeys pass through it; open it to see what's inside, one level at a time. Each element links to its code paths and snippets, down to the lines that hold its logic.
+On the map, a box's shape says what it is: actors are pills, datastores have a lid, and what lives in another repo is dashed. Its color says what kind it is: people, AI agents, and automated systems that call in each have one, as does each kind of element. The **Key and layout** box in the corner names the colors, turns the map top down or left to right, and turns the lines' descriptions on and off. Click a box to see what it uses, who uses it, and which journeys pass through it; open it to see what's inside, one level at a time. Each element links to its code paths and snippets, down to the lines that hold its logic.
 
 In a repository that keeps [seals](./agents.md#seals-what-to-re-check-when-code-changes), the overview lists the facts whose code changed since someone checked them, a box with any carries a "re-check" mark, and its panel says what changed and which `archdoc seal` to run once the model holds again.
 
@@ -25,11 +25,13 @@ In a repository that keeps [seals](./agents.md#seals-what-to-re-check-when-code-
 
 The **Journeys** tab draws a journey as lanes, one per participant, with a numbered arrow per step and the data it sends. After a decision, the steps that follow are grouped by outcome, each labelled with its condition, so branches read as branches. The panel beside it shows one step at a time: what it does, between whom and through which contract, the message's fields with their values, the records it writes, and its code.
 
-"Show on map" plays it on the system map instead.
+"Show on map" plays it on the system map instead. A step that doesn't follow a use is drawn straight across between its boxes, in red, with the error in the step's panel.
 
 ## Follow the data
 
-The **Data** tab lists data entries, including other repos'. Pick a message and the uses it travels along light up. Pick an entity and the datastore that stores it opens into its tables, with a line for each foreign key. Click a field and its lineage lights up across tables and repos.
+The **Data** tab lists data entries, including other repos'. It opens on where the data lives: each datastore and queue with its tables, their keys, the entry each holds, and who writes and uses it, then the requests, messages, and events that travel between the parts. Pick an entry for its page: its schema (each field's type, key, classification, and the entry it points to), where it's stored, who makes and gets it, the journey steps that send or write it, and the entries related to it. Entries without fields yet are marked, so the gaps are easy to see.
+
+Switch the entry to **Map** to see it on the system map: a message lights up the uses it travels along, and an entity opens the datastore that stores it into its tables, with a line for each foreign key. Click a field and its lineage lights up across tables and repos.
 
 ## See where a bug went
 
