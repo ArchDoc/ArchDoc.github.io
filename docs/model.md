@@ -20,7 +20,7 @@ The rest describes four things: actors, elements, journeys, and data.
 
 ## Actors: who uses the system
 
-An actor is someone or something that uses the system for a reason. Its `kind` is `person`, `role`, `team`, `organization`, or `agent`. `uses` says which elements it uses and why.
+An actor is someone or something that uses the system for a reason. Its `kind` is `person`, `role`, `team`, or `organization` for people; `system` for software that calls in on its own, such as another service, a scheduler, a CI job, or a webhook sender; or `agent` for an AI agent, an LLM or assistant that acts on its own. `uses` says which elements it uses and why.
 
 ```yaml
 actors:
@@ -74,7 +74,7 @@ journeys:
       - { from: mobile-app, to: api-gateway, action: POST /trips }
 ```
 
-`archdoc validate` checks every step against the declared relationships, so a journey can't walk an arrow that doesn't exist. When a change removes a relationship a critical journey still uses, validation fails and the pull request report names the journey.
+`archdoc validate` checks every step against the declared relationships, so a journey can't walk an arrow that doesn't exist. A journey is also a path: each step starts where the flow already is, at an element an earlier step reached, and `archdoc check` warns about a step that jumps to an element out of nowhere. Only an actor, or an external system acting on its own (a webhook arriving), may start a step out of the flow. When a change removes a relationship a critical journey still uses, validation fails and the pull request report names the journey.
 
 ## Data: what's sent and stored
 

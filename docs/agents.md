@@ -99,7 +99,7 @@ In a repository with no `.archdoc/`, `archdoc_init` (or `archdoc init`) writes a
 
 It's deterministic, marks every fact `provenance: { source: inferred }`, never writes over a model, and never seals. On ArchDoc itself it finds all 10 containers and 13 of the 17 uses between them; the rest happen at run time, not in imports.
 
-What it can't know, the agent adds with the code open: what each element does, who uses the system (actors), and the two or three journeys that matter most. Then it runs `archdoc_check` until it's clean, and asks you to review the model in [the explorer](./explorer.md). Once you've accepted it, `archdoc seal --all` starts keeping it true.
+What it can't know, the agent adds with the code open: what each element does, who uses the system (actors: people, other software that calls in as `kind: system`, and only AI agents as `kind: agent`), the journeys that matter most, each a path from one element to the next, and each data entry's fields, from where the code defines it. `archdoc_check` with `done: true` lists what's still missing, from data entries without fields to elements deployed somewhere other than the node they run on. Then it runs `archdoc_check` until it's clean, and asks you to review the model in [the explorer](./explorer.md). Once you've accepted it, `archdoc seal --all` starts keeping it true.
 
 ## Seals: what to re-check when code changes
 
