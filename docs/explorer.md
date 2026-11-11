@@ -1,6 +1,6 @@
 ---
 title: Explorer
-description: The browser view of a model, with the hierarchy, actors, journeys, data, changes, and click-through to code.
+description: The browser view of a model, with the hierarchy, actors, journeys, data, bugs, changes, and click-through to code.
 ---
 
 # Explorer
@@ -33,9 +33,9 @@ The **Data** tab lists data entries, including other repos'. It opens on where t
 
 Switch the entry to **Map** to see it on the system map: a message lights up the uses it travels along, and an entity opens the datastore that stores it into its tables, with a line for each foreign key. Click a field and its lineage lights up across tables and repos.
 
-## See where a bug went
+## Walk through a bug
 
-The **Traces** tab shows the bugs traced in `.archdoc/traces/`: the error, the diagnosis, the journey step as modeled with the path the failing request really took beneath it, the cause in red, calls that didn't happen, hops the model doesn't declare, and the evidence for each step. See [For agents](./agents.md#explaining-a-bug).
+The **Triage** tab, under Build, lists the [Triage records](./triage.md) in `.archdoc/triage/` by status, with open work first. A record shows the report beside the root cause and the fix, then the leads followed. It then plays the bug's journey on the map, one step at a time, like a journey: the cause in red, the steps where it spreads in amber, and a step the model doesn't declare drawn straight across. **Sequence** shows the same steps as lanes beneath the journey step as modeled, with calls that didn't happen dashed. **Start a triage** places a pasted error on the system and gives you a prompt to hand your agent.
 
 ## Review a change
 

@@ -47,7 +47,7 @@ People and agents reach the engine through the surface that fits the moment:
 |---|---|---|
 | AI coding agents | Before editing | [An MCP server and an agent skill](./agents.md): where does this belong, what depends on it, which rules and journeys apply |
 | Reviewers | Before merging | [A pull request check](./reviewers.md): affected journeys, owners, data changes, consumers in other repos, and drift |
-| Everyone | Anytime | [The explorer](./explorer.md): the hierarchy, actors, journeys, data, and click-through to code |
+| Everyone | Anytime | [The explorer](./explorer.md): the hierarchy, actors, journeys, data, bugs [triaged](./triage.md) to their root cause, and click-through to code |
 | Enterprises | Across teams | [The landscape](./landscape.md) (experimental): every repository's model composed into one view |
 
 ## Coming from v0

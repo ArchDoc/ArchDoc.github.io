@@ -14,7 +14,7 @@ ArchDoc doesn't run an LLM of its own. Your agent does the reasoning; ArchDoc gi
 | Tool | Question | CLI |
 |---|---|---|
 | `archdoc_context` | Where do I start, and what does it affect? From the task in words, the files to change (even ones that don't exist yet), or an error. With nothing, an overview | `archdoc context` |
-| `archdoc_show` | What is this one thing? An element (with its code), actor, journey, data entry, `Entry.field` (its lineage), trace, or sealed fact | `archdoc show <id>` |
+| `archdoc_show` | What is this one thing? An element (with its code), actor, journey, data entry, `Entry.field` (its lineage), Triage record, or sealed fact | `archdoc show <id>` |
 | `archdoc_check` | What's wrong or stale? With a base, what does my change do: the verdict the [pull request comment](./reviewers.md) will give, each finding with its fix | `archdoc check --base main` |
 | `archdoc_seal` | I checked these facts against their code. Says what's left | `archdoc seal <fact>` |
 | `archdoc_init` | There's no model yet: start one | `archdoc init` |
@@ -28,7 +28,7 @@ The skill and the `AGENTS.md` snippet teach agents the same loop, in three or fo
 1. **Start with context.** `archdoc_context` with the task in a few words, the files it plans to change, or both, returns a short brief: the files and functions to open first, other code that does the same job (other callers of the functions those files use), the data and rules involved, the journeys whose steps name those files, the tests to run, the owners, and who uses it. With a [landscape](./landscape.md) synced, that includes other repositories.
 2. **Say what it affects.** The agent names the affected journeys and actors in its plan, and asks you first when a critical journey is involved, the change would break a rule, or another repository uses what it would remove or rename.
 3. **Edit the code and the model together.** When the change adds a component or a dependency on purpose, the agent adds it to `.archdoc/`, marked as a suggestion (below). When it moves or removes one, it updates the model in the same change.
-4. **Check.** `archdoc_check` with base `main` gives the verdict the PR comment will give, then what the change introduced, each with its fix: imports the model doesn't declare, broken rules and journeys, stale code paths, data rules, traces, and facts whose code changed since they were sealed. The agent fixes those, or removes a dependency it didn't mean to add, and checks again.
+4. **Check.** `archdoc_check` with base `main` gives the verdict the PR comment will give, then what the change introduced, each with its fix: imports the model doesn't declare, broken rules and journeys, stale code paths, data rules, Triage records, and facts whose code changed since they were sealed. The agent fixes those, or removes a dependency it didn't mean to add, and checks again.
 5. **Seal what it checked.** For each fact whose code changed, the agent reads what changed, updates the model where it no longer holds, then seals it with `archdoc_seal`, which says what's left. The PR comment says who checked. It never seals a fact it hasn't read. See [Seals](#seals-what-to-re-check-when-code-changes).
 
 For the PR description, `archdoc_check` with `format: "markdown"` returns the comment itself.
@@ -130,14 +130,24 @@ The agent reads the change, updates the model if it no longer holds (here, the c
 
 A seal says someone checked; it isn't proof they were right. That's why the [pull request comment](./reviewers.md#seals) lists the facts a change sealed again and who sealed them, and lists any it left unchecked under "To check". Seals are opt-in: nothing happens until a repository has an `archdoc.sum`.
 
-## Explaining a bug
+## Triaging a bug
 
-Give your agent an error: a log line, a stack trace, or wrong output. `archdoc_context` with the error (or `archdoc context --error log.txt`) maps its paths and stack frames to elements and ranks the journey steps it most likely showed up in. The agent follows the code from there and writes a **trace** to `.archdoc/traces/<id>.yaml`: the path the failing request actually took, as a change to the journey step it expands, with a role (cause, spreads, symptom) and evidence (reproduced, read, inferred) on every step, the values it saw against the ones it expected, and any call that didn't happen.
+Give your agent a bug to explain or fix: an issue, a log line, a stack trace, or wrong output. It starts with `archdoc_triage`, which:
+- places the bug on the journey steps it most likely showed up in
+- names the elements its paths and stack frames map to
+- writes a Triage record to `.archdoc/triage/<id>.yaml`
+
+The agent then follows the code and fills the record in:
+- each lead, ruled in or out
+- each step the failing request took, with a role (cause, spreads, symptom) and evidence (reproduced, read, inferred)
+- the values it saw against the ones it expected
+- the root cause, and the fix if it makes one
 
 ```yaml
-trace: report-false-data-changes
+triage: report-false-data-changes
 title: The PR report says data changed when it didn't
-expands: review-ai-change#4
+status: fixed
+expands: review-ai-change#5
 steps:
   - from: cli
     to: core.loader
@@ -148,9 +158,11 @@ steps:
     observed: { Charge.id.type: undefined }
     expected: { Charge.id.type: uuid }
     missing: { to: analyzers, call: applySchemas }
+root-cause: { summary: The report loads the base revision without its schema sources. }
+fix: loadRevision builds both sides the same way.
 ```
 
-A trace is evidence of one run, not the design, so it's never part of the model. `archdoc check` (and `archdoc_check`) checks it against the model and the code, and flags hops the model doesn't declare: drift found while debugging. Commit it with the fix, and the PR comment says which bug the change fixes.
+A record is evidence of one bug, not the design, so it's never part of the model. `archdoc check` (and `archdoc_check`) checks it against the model and the code, and holds it to what its status needs. Commit it with the fix, and the PR comment says which bug the change fixes. See [Triage](./triage.md) for the whole format and how the explorer shows it.
 
 ## How well it points
 

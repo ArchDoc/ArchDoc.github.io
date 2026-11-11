@@ -23,7 +23,7 @@ Then, in order:
 - **What changed**: a Mermaid diagram of only the elements and arrows that changed, and a link to the change in the [explorer](./explorer.md) when you set `explorer-url`.
 - Folded below: the affected journeys as sequence diagrams, with branches drawn as branches; consumers in other repositories; data; drift; model changes; and findings already on the base.
 
-When a pull request doesn't change the architecture, the Action stays quiet: no new comment. When it fixes a bug traced in `.archdoc/traces/`, the comment says which one.
+When a pull request doesn't change the architecture, the Action stays quiet: no new comment. When it adds or updates a [Triage record](./triage.md), the comment says what it does for that bug: fixes it, finds its root cause, or triages it.
 
 ## Seals
 
