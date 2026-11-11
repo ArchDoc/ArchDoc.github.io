@@ -88,9 +88,10 @@ For editor validation, `archdoc schema -o archdoc.schema.json` writes the JSON S
 | `archdoc validate` | Check the schema, every reference, and every journey step against the declared relationships |
 | `archdoc init` | Start a model for a repository that has none, from its manifests, compose files, imports, and schema files |
 | `archdoc context <words or paths>` | Where to start a task: files and functions to open, the data, rules, and journeys involved, tests, owners, and who uses it. `--error <file>` places an error; with nothing, an overview |
-| `archdoc show <id>` | One thing by ID: element (`--code` for its snippets), actor, journey, data entry, `Entry.field` (its lineage), trace, or sealed fact |
+| `archdoc show <id>` | One thing by ID: element (`--code` for its snippets), actor, journey, data entry, `Entry.field` (its lineage), Triage record, or sealed fact |
+| `archdoc triage start <file>` | Start a [Triage record](./triage.md) from a bug report. `archdoc triage list` lists them, open ones first |
 | `archdoc map` | How the repository's files map onto the model, and which files no element claims |
-| `archdoc check` | What's wrong or stale: model problems, dependencies the model doesn't declare, broken rules and journeys, stale code paths, traces, and sealed facts whose code changed. `--base main` says what your change does, with the PR comment's verdict |
+| `archdoc check` | What's wrong or stale: model problems, dependencies the model doesn't declare, broken rules and journeys, stale code paths, Triage records, and sealed facts whose code changed. `--base main` says what your change does, with the PR comment's verdict |
 | `archdoc seal <fact>` | Record that a fact still describes its code. `archdoc seal --all` starts sealing; `archdoc check --seals` lists what to re-check |
 | `archdoc diff <ref>` | What changed in the model, by element, relationship, actor, and journey |
 | `archdoc report --base main` | Your branch's architectural impact, as markdown for a pull request |
