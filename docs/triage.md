@@ -18,7 +18,7 @@ archdoc triage start bug.txt --title "Refunds wait for finance" --link https://g
 pbpaste | archdoc triage start -        # or from stdin
 ```
 
-ArchDoc reads the bug's stack frames, paths, and the names it mentions. It maps them to elements, ranks the journey steps the bug most likely showed up in, and writes the record with status `investigating`. The new record holds:
+ArchDoc reads the bug's stack frames, paths, and the names it mentions, including an element named in plain words ("the notifier"), so a report with no stack trace places too. It maps them to elements, ranks the journey steps the bug most likely showed up in, and writes the record with status `investigating`. The new record holds:
 - the best journey step
 - the elements the bug names, as open leads
 - a step for each call between elements that the stack shows
@@ -114,7 +114,7 @@ A ruled-out lead stays in the record, so the next person doesn't follow it again
 | Status | Needs |
 |---|---|
 | `investigating` | a step or a lead |
-| `root-caused` | a step with `role: cause` (or `root-cause.step`), and `root-cause.summary` |
+| `root-caused` | a step with `role: cause` (or `root-cause.step`) and the `code` where it goes wrong, and `root-cause.summary` |
 | `fixed` | the same, plus `fix` |
 | `wont-fix`, `cannot-reproduce` | why, in `root-cause.summary` |
 
