@@ -138,4 +138,4 @@ The bug's journey plays on the map of the system, one step at a time, like a [jo
 
 ## From traces
 
-Before 0.8, these records were called traces and lived in `.archdoc/traces/`, keyed `trace:`. They still load as Triage records, with a note to move them. `archdoc triage migrate` moves them to `.archdoc/triage/`, renames the key, and turns `diagnosis` into `root-cause.summary`, keeping your comments. Old `#traces=` links in the explorer open the Triage tab.
+Before 0.8, these records were called traces and lived in `.archdoc/traces/`, keyed `trace:`. Since 0.9 they aren't read: `archdoc triage migrate` moves them to `.archdoc/triage/`, renames the key, and turns `diagnosis` into `root-cause.summary`, keeping your comments. Old `#traces=` links in the explorer open the Triage tab.
