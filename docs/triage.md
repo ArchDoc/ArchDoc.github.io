@@ -32,14 +32,14 @@ In the explorer, **Start a triage** (at the top of the Triage tab's list) places
 - the elements it names
 - any records already written on those steps or elements
 
-Press **Send to agent** and pick what you want (**Find the root cause** or **Fix it**), or say it in your own words. The explorer writes the record, as `archdoc triage start` would, and marks it sent. Your agent picks it up with `archdoc triage wait` (or `archdoc_triage` with `wait: true`), which waits for the next bug you send and hands it over with what you asked.
+Under the bug, press **Send to agent: find the root cause**, or **Find and fix it**. The explorer writes the record, as `archdoc triage start` would, and marks it sent. Your agent picks it up with `archdoc triage wait` (or `archdoc_triage` with `wait: true`), which waits for the next bug you send and hands it over with what you asked.
 
 ```bash
 archdoc view --watch     # then Build → Triage → Start a triage
 archdoc triage wait      # in your agent's session: waits for the next bug you send
 ```
 
-A record's page has **Send to agent** too, to send it again with what you want now: **Fix it** once it's root-caused, or **Look again**. The page says when it was sent, and when your agent has it. On a site built with `archdoc site`, which can't write, Start a triage gives you a prompt to copy into your agent instead.
+A record's page has the same buttons, for what's next: **Send to agent: fix it** once it's root-caused, or **Look again**. The page says when it was sent, and when your agent has it. On a site built with `archdoc site`, which can't write, Start a triage gives you a prompt to copy into your agent instead.
 
 ## What a record says
 

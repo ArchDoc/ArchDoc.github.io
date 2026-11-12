@@ -1,11 +1,11 @@
 ---
 title: Plan
-description: Design a change with your agent on the map of the system. You say what you want where, and your agent works out the architecture, instead of handing you a long markdown plan.
+description: Design a change with your agent on the map of the system. You drive the design, saying what you want where, and your agent turns it into the model, instead of handing you a long markdown plan.
 ---
 
 # Plan
 
-Asking an agent for an implementation plan usually gets you a long markdown file to skim. **Plan** turns that around. You tell your agent the idea, then click in the boxes on the explorer's map of the system where it should happen and say what you want there, in your own words. No forms. Your agent works out the architecture against the code and answers on the map: the elements, arrows, and flows that would carry out each thing you asked for, plus what it found and what it's unsure of. You go back and forth until the plan is solid, and then it carries it out.
+Asking an agent for an implementation plan usually gets you a long markdown file to skim. **Plan** turns that around. You tell your agent the idea, then click in the boxes on the explorer's map of the system where it should happen and say what you want there, in your own words. No forms. You drive the design: your agent proposes nothing until you've said what you want, then turns each thing you asked for into the model against the code, and answers on the map with the elements, arrows, and flows that carry it out, plus what it found and what it's unsure of. Where you left a choice open, it asks instead of choosing for you. You go back and forth until the plan is solid, and then it carries it out.
 
 A plan lives in `.archdoc/plans/<id>.yaml`, next to the model but not part of it, detailed enough for an agent to build from. Nothing in it changes the model until the work lands.
 
@@ -28,16 +28,16 @@ The Plan tab draws the model as it would be with your plan made, with the same m
 - **Add as many as you like:** each one goes where you click. Click a pin to change or remove it. A box's panel also has **Say what you want here**.
 - **Leave a note:** on a box, an intent, or the plan as a whole, for what you mean or what you're unsure of.
 
-You never draw elements or arrows yourself. That's the agent's job. When you want its answer, press **Send to agent**. The header counts the edits it hasn't seen yet.
+You never draw elements or arrows yourself; say how you want it done, and the agent follows. When you want its answer, press **Send to agent**. It's there once you've said what you want somewhere. The header counts the edits it hasn't seen yet.
 
 ## Review it with your agent
 
-Your agent waits for you to send it (`archdoc plan wait`), then reads what you changed since it last looked: your intents and where you put them, what the plan reaches, and what ArchDoc's check found. It works out the architecture for each intent against the code and answers on the map:
+Your agent waits for you to send it (`archdoc plan wait`), then reads what you changed since it last looked: your intents and where you put them, what the plan reaches, and what ArchDoc's check found. It checks each intent against the code and carries out what it says, no more, answering on the map:
 
 - **Notes** pinned to what they're about: an *insight* it found in the code, a *question* you need to decide, or a *risk*. Reply to any of them, answer a question, and resolve it when it's settled.
 - **Suggested changes and flows:** the elements, arrows, and journey steps that carry out each intent, drawn dashed and marked with the intent they're for. Click an intent to see them. **Accept** one to make it part of the plan, or **Dismiss** it. A dismissed suggestion stays in the file, so it isn't suggested again.
 
-It never changes what you wrote. If an intent is unclear, it asks in a note.
+It never changes what you wrote. Where an intent leaves a design choice open (which store, sync or queued, a new element or an existing one), it asks with a question that names the options and what each costs, and suggests once you answer. It can't suggest anything that isn't for one of your intents: `archdoc plan respond` refuses it, and refuses any suggestion before you've sent your first intent.
 
 Send it again after each round. An intent stays open until something the agent suggested carries it out, or you settle it. When nothing is open (every intent worked out, no question unanswered, no suggestion waiting, and the check clean), press **Mark ready**.
 

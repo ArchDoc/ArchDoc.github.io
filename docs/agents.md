@@ -133,7 +133,7 @@ A seal says someone checked; it isn't proof they were right. That's why the [pul
 
 ## Planning a change
 
-Ask your agent to plan or design a change, and it starts with `archdoc_plan` instead of writing a markdown plan. It opens the explorer's Plan tab, where you click in the boxes on the map and say what you want there, and waits for you to send it. It then works out the architecture for each thing you asked for against the code and answers on the map: suggested elements, arrows, and steps that carry it out, for you to accept or dismiss, and insights, questions, and risks pinned to what they're about. It never changes what you wrote. Once you mark the plan ready, it writes the tasks, works through them, and edits the model as each lands. See [Plan](./plan.md).
+Ask your agent to plan or design a change, and it starts with `archdoc_plan` instead of writing a markdown plan. It opens the explorer's Plan tab, where you click in the boxes on the map and say what you want there, and waits for you to send it. You drive the design: it suggests nothing until you've sent what you want. It then carries out each thing you asked for, checked against the code, and answers on the map: suggested elements, arrows, and steps that carry it out, for you to accept or dismiss, questions where you left a choice open, and insights and risks pinned to what they're about. It never changes what you wrote. Once you mark the plan ready, it writes the tasks, works through them, and edits the model as each lands. See [Plan](./plan.md).
 
 ## Triaging a bug
 
@@ -148,7 +148,7 @@ The agent then follows the code and fills the record in:
 - the values it saw against the ones it expected
 - the root cause, and the fix if it makes one
 
-You can also hand it a bug from the explorer: paste it into **Start a triage** and press **Send to agent**, or send a record again from its page with what you want now (find the root cause, fix it, look again). The agent picks it up with `archdoc_triage` and `wait: true` (`archdoc triage wait`).
+You can also hand it a bug from the explorer: paste it into **Start a triage** and press **Send to agent: find the root cause** (or **Find and fix it**), or send a record again from its page (**Send to agent: fix it** once it's root-caused). The agent picks it up with `archdoc_triage` and `wait: true` (`archdoc triage wait`).
 
 ```yaml
 triage: report-false-data-changes
