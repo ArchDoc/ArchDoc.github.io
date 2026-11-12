@@ -17,7 +17,7 @@ ArchDoc doesn't run an LLM of its own. Your agent does the reasoning; ArchDoc gi
 | `archdoc_show` | What is this one thing? An element (with its code), actor, journey, data entry, `Entry.field` (its lineage), Triage record, or sealed fact | `archdoc show <id>` |
 | `archdoc_check` | What's wrong or stale? With a base, what does my change do: the verdict the [pull request comment](./reviewers.md) will give, each finding with its fix | `archdoc check --base main` |
 | `archdoc_seal` | I checked these facts against their code. Says what's left | `archdoc seal <fact>` |
-| `archdoc_plan` | Design a change with the person: start a plan, wait for their sketch, read it, answer with notes and suggestions, and carry out its tasks | `archdoc plan` |
+| `archdoc_plan` | Design a change with the person: start a plan, wait for what they want, read it, answer with suggested changes and notes, and carry out its tasks | `archdoc plan` |
 | `archdoc_init` | There's no model yet: start one | `archdoc init` |
 
 Every tool reloads the model on every call, so answers follow your edits, and each prints the same answer as the CLI command of the same name. All of them are read-only except `archdoc_seal`, which writes only `.archdoc/archdoc.sum`, and `archdoc_init`, which writes `.archdoc/` only where there's none. The whole tool list an agent reads is under 4,500 characters.
@@ -133,7 +133,7 @@ A seal says someone checked; it isn't proof they were right. That's why the [pul
 
 ## Planning a change
 
-Ask your agent to plan or design a change, and it starts with `archdoc_plan` instead of writing a markdown plan. It opens the explorer's Plan tab, where you sketch the change on the map with the intent of each part, and waits for you to send it. It then checks every part against the code and answers on the map: insights, questions, and risks pinned to what they're about, and suggested elements, arrows, and steps for you to accept or dismiss. It never changes your parts. Once you mark the plan ready, it writes the tasks, works through them, and edits the model as each lands. See [Plan](./plan.md).
+Ask your agent to plan or design a change, and it starts with `archdoc_plan` instead of writing a markdown plan. It opens the explorer's Plan tab, where you click in the boxes on the map and say what you want there, and waits for you to send it. It then works out the architecture for each thing you asked for against the code and answers on the map: suggested elements, arrows, and steps that carry it out, for you to accept or dismiss, and insights, questions, and risks pinned to what they're about. It never changes what you wrote. Once you mark the plan ready, it writes the tasks, works through them, and edits the model as each lands. See [Plan](./plan.md).
 
 ## Triaging a bug
 
@@ -147,6 +147,8 @@ The agent then follows the code and fills the record in:
 - each step the failing request took, with a role (cause, spreads, symptom) and evidence (reproduced, read, inferred)
 - the values it saw against the ones it expected
 - the root cause, and the fix if it makes one
+
+You can also hand it a bug from the explorer: paste it into **Start a triage** and press **Send to agent**, or send a record again from its page with what you want now (find the root cause, fix it, look again). The agent picks it up with `archdoc_triage` and `wait: true` (`archdoc triage wait`).
 
 ```yaml
 triage: report-false-data-changes

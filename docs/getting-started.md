@@ -90,7 +90,7 @@ For editor validation, `archdoc schema -o archdoc.schema.json` writes the JSON S
 | `archdoc context <words or paths>` | Where to start a task: files and functions to open, the data, rules, and journeys involved, tests, owners, and who uses it. `--error <file>` places an error; with nothing, an overview |
 | `archdoc show <id>` | One thing by ID: element (`--code` for its snippets), actor, journey, data entry, `Entry.field` (its lineage), Triage record, or sealed fact |
 | `archdoc plan start <idea>` | Start a [plan](./plan.md) to design a change with your agent in the explorer's Plan tab. `archdoc plan list` lists them |
-| `archdoc triage start <file>` | Start a [Triage record](./triage.md) from a bug report. `archdoc triage list` lists them, open ones first |
+| `archdoc triage start <file>` | Start a [Triage record](./triage.md) from a bug report. `archdoc triage list` lists them, open ones first, and `archdoc triage wait` picks up a bug sent from the explorer |
 | `archdoc map` | How the repository's files map onto the model, and which files no element claims |
 | `archdoc check` | What's wrong or stale: model problems, dependencies the model doesn't declare, broken rules and journeys, stale code paths, Triage records, and sealed facts whose code changed. `--base main` says what your change does, with the PR comment's verdict |
 | `archdoc seal <fact>` | Record that a fact still describes its code. `archdoc seal --all` starts sealing; `archdoc check --seals` lists what to re-check |
