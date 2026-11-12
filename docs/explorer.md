@@ -33,6 +33,10 @@ The **Data** tab lists data entries, including other repos'. It opens on where t
 
 Switch the entry to **Map** to see it on the system map: a message lights up the uses it travels along, and an entity opens the datastore that stores it into its tables, with a line for each foreign key. Click a field and its lineage lights up across tables and repos.
 
+## Plan a change
+
+The **Plan** tab, under Build, is where you design a change with your agent. It draws the model as it would be with the [plan](./plan.md) made: double-click the map to add an element, drag from one box to another for an arrow, and click boxes in order to record a sequence, each with what you mean it to do. Your agent's notes and suggestions show up on the map, suggestions dashed, for you to accept or dismiss. **Send to agent** asks for its review; **Mark ready** says the plan is agreed.
+
 ## Walk through a bug
 
 The **Triage** tab, under Build, lists the [Triage records](./triage.md) in `.archdoc/triage/` by status, with open work first. A record shows the report beside the root cause and the fix, then the leads followed. It then plays the bug's journey on the map, one step at a time, like a journey: the cause in red, the steps where it spreads in amber, and a step the model doesn't declare drawn straight across. **Sequence** shows the same steps as lanes beneath the journey step as modeled, with calls that didn't happen dashed. **Start a triage** places a pasted error on the system and gives you a prompt to hand your agent.

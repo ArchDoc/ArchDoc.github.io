@@ -9,7 +9,7 @@ A coding agent that starts from the architecture reads less code and breaks less
 
 ArchDoc doesn't run an LLM of its own. Your agent does the reasoning; ArchDoc gives it deterministic answers.
 
-## Five tools, one per question
+## One tool per question
 
 | Tool | Question | CLI |
 |---|---|---|
@@ -17,6 +17,7 @@ ArchDoc doesn't run an LLM of its own. Your agent does the reasoning; ArchDoc gi
 | `archdoc_show` | What is this one thing? An element (with its code), actor, journey, data entry, `Entry.field` (its lineage), Triage record, or sealed fact | `archdoc show <id>` |
 | `archdoc_check` | What's wrong or stale? With a base, what does my change do: the verdict the [pull request comment](./reviewers.md) will give, each finding with its fix | `archdoc check --base main` |
 | `archdoc_seal` | I checked these facts against their code. Says what's left | `archdoc seal <fact>` |
+| `archdoc_plan` | Design a change with the person: start a plan, wait for their sketch, read it, answer with notes and suggestions, and carry out its tasks | `archdoc plan` |
 | `archdoc_init` | There's no model yet: start one | `archdoc init` |
 
 Every tool reloads the model on every call, so answers follow your edits, and each prints the same answer as the CLI command of the same name. All of them are read-only except `archdoc_seal`, which writes only `.archdoc/archdoc.sum`, and `archdoc_init`, which writes `.archdoc/` only where there's none. The whole tool list an agent reads is under 4,500 characters.
@@ -129,6 +130,10 @@ contract proto/charges.proto of charges (.archdoc/archdoc.yaml:18)
 The agent reads the change, updates the model if it no longer holds (here, the contract's description now misses an RPC), and runs `archdoc seal <fact> --by agent:<name>`, or `archdoc seal <element-id>` for all of an element's facts. Without facts, `archdoc seal` seals only new ones and keeps changed ones flagged, so nothing gets waved through by accident.
 
 A seal says someone checked; it isn't proof they were right. That's why the [pull request comment](./reviewers.md#seals) lists the facts a change sealed again and who sealed them, and lists any it left unchecked under "To check". Seals are opt-in: nothing happens until a repository has an `archdoc.sum`.
+
+## Planning a change
+
+Ask your agent to plan or design a change, and it starts with `archdoc_plan` instead of writing a markdown plan. It opens the explorer's Plan tab, where you sketch the change on the map with the intent of each part, and waits for you to send it. It then checks every part against the code and answers on the map: insights, questions, and risks pinned to what they're about, and suggested elements, arrows, and steps for you to accept or dismiss. It never changes your parts. Once you mark the plan ready, it writes the tasks, works through them, and edits the model as each lands. See [Plan](./plan.md).
 
 ## Triaging a bug
 

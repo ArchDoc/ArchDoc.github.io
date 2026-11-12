@@ -10,7 +10,7 @@ const sidebars = {
       type: 'category',
       label: 'Surfaces',
       collapsed: false,
-      items: ['agents', 'triage', 'reviewers', 'explorer', 'landscape'],
+      items: ['agents', 'plan', 'triage', 'reviewers', 'explorer', 'landscape'],
     },
   ],
 };
