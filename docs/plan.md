@@ -60,7 +60,7 @@ They're warnings while you sketch, and errors once the plan is ready. Plans that
 
 ## Carry it out
 
-Once it's ready, your agent writes the tasks that carry the plan out, each small enough for one commit: the changes and sequences it carries out, the files it changes, the tests that show it works, and the tasks that come first. Then it works through them in order, editing the model with `archdoc_edit` as each one's code lands, and marks each task as it goes (`archdoc plan task <id> t1 --status done`). The first task started moves the plan to `executing`, and the last one done moves it to `done`. It stops to ask only when a check fails or a task would change a critical journey.
+Once it's ready, your agent writes the tasks that carry the plan out, each small enough for one commit: the changes and sequences it carries out, the files it changes, the tests that show it works, and the tasks that come first. Then it works through them in order, editing the model with `archdoc_edit` as each one's code lands (once the plan is ready, `archdoc plan read` gives each change as the edit op that makes it), and marks each task as it goes (`archdoc plan task <id> t1 --status done`). The first task started moves the plan to `executing`, and the last one done moves it to `done`. It stops to ask only when a check fails or a task would change a critical journey.
 
 ## What a plan says
 
