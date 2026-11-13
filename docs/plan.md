@@ -5,7 +5,7 @@ description: Design a change with your agent on the map of the system. You drive
 
 # Plan
 
-Asking an agent for an implementation plan usually gets you a long markdown file to skim. **Plan** turns that around. You tell your agent the idea, then click in the boxes on the explorer's map of the system where it should happen and say what you want there, in your own words. No forms. You drive the design: your agent proposes nothing until you've said what you want, then turns each thing you asked for into the model against the code, and answers on the map with the elements, arrows, and flows that carry it out, plus what it found and what it's unsure of. Where you left a choice open, it asks instead of choosing for you. You go back and forth until the plan is solid, and then it carries it out.
+Asking an agent for an implementation plan usually gets you a long markdown file to skim. **Plan** turns that around. You tell your agent the idea, then click on the explorer's map of the system where it should happen: add a box there, or a note on what you want, in your own words. You drive the design: your agent proposes nothing until you've said what you want, then turns each thing you asked for into the model against the code, and answers on the map with the elements, arrows, and flows that carry it out, plus what it found and what it's unsure of. Where you left a choice open, it asks instead of choosing for you. You take turns, as in a chat, until the plan is solid, and then it carries it out.
 
 A plan lives in `.archdoc/plans/<id>.yaml`, next to the model but not part of it, detailed enough for an agent to build from. Nothing in it changes the model until the work lands.
 
@@ -22,25 +22,36 @@ Starting a plan writes it with status `drafting`, with the parts of the model th
 
 ## Say what you want on the map
 
-The Plan tab draws the model as it would be with your plan made, with the same marks as the Diff tab: new parts marked added, changed ones changed. It shows only what the plan touches: your intents, the changes and flows for them, and what those connect to (before your first intent, the parts the idea landed on). **Show the whole system** in the header brings back the rest, and so does picking a level.
+The Plan tab draws the model as it would be with your plan made, with the same marks as the Diff tab: new parts marked added, changed ones changed. It keeps the map quiet: only what the plan touches (your intents and the changes and flows for them), the few places the idea landed on, and the arrows between them. **Whole system** in the header brings back the rest, and so does picking a level.
 
-- **Say what you want somewhere:** click in a box, or on the map for the system as a whole. A small popover opens where you clicked. Write what you want there, such as "email the shopper a receipt once the charge goes through", and press Enter. It becomes an **intent** (`i1`), pinned to that spot.
-- **Say how two parts connect:** click the arrow between them (or its label), or drag from one box to another, whether or not they're connected yet. The popover asks what should change between them, and the intent is pinned halfway between the two boxes. Dragging empty space still moves the map.
-- **Add as many as you like:** each one goes where you click. Click a pin to change or remove it. A box's panel also has **Say what you want here**.
-- **Leave a note:** on a box, an intent, or the plan as a whole, for what you mean or what you're unsure of.
+What a click does depends on the mode in the header: **Add** (the default, or press A) or **Explore** (E).
 
-You never draw elements or arrows yourself; say how you want it done, and the agent follows. When you want its answer, press **Send to agent**. It's there once you've said what you want somewhere. The header counts the edits it hasn't seen yet.
+In **Add**, a click on a box, inside a container or the system, or on the map itself opens a small menu where you clicked. It shows what the box is (its kind and description), and offers:
 
-## Review it with your agent
+- **New element:** draw a box there. Give it a name and say what it's for. Inside the system it's a container, inside a container a component; on anything else, a box beside it. It's on the map at once, marked added, so you can drag arrows to it, and what it's for goes to your agent as an intent on it, to work out what it needs.
+- **New note:** say what you want there, such as "email the shopper a receipt once the charge goes through". It becomes an **intent** (`i1`), pinned where you clicked.
+- **Details:** read the box in the panel.
 
-Your agent waits for you to send it (`archdoc plan wait`), then reads what you changed since it last looked: your intents and where you put them, what the plan reaches, and what ArchDoc's check found. It checks each intent against the code and carries out what it says, no more, answering on the map:
+To say how two parts connect, click the arrow between them (or its label), or drag from one box to another, the boxes you drew included, whether or not they're connected yet. The popover asks what should change between them, and the intent is pinned halfway between the two boxes. Dragging empty space still moves the map. Click a pin to change or remove it.
 
-- **Notes** pinned to what they're about: an *insight* it found in the code, a *question* you need to decide, or a *risk*. Reply to any of them, answer a question, and resolve it when it's settled.
-- **Suggested changes and flows:** the elements, arrows, and journey steps that carry out each intent, drawn dashed and marked with the intent they're for. Click an intent to see them. **Accept** one to make it part of the plan, or **Dismiss** it. A dismissed suggestion stays in the file, so it isn't suggested again.
+In **Explore**, a click reads the box instead: the panel shows what it is, its description, and what the plan does there. Pins still open their intent.
 
-It never changes what you wrote. Where an intent leaves a design choice open (which store, sync or queued, a new element or an existing one), it asks with a question that names the options and what each costs, shown as buttons: one tap answers it, settles it, and sends the plan back (or answer in your own words). It suggests once you answer. For an intent about how two parts connect, it answers with an arrow between them, or a new part in between. It can't suggest anything that isn't for one of your intents: `archdoc plan respond` refuses it, and refuses any suggestion before you've sent your first intent.
+You don't draw the arrows the design needs, or fill in a box's details: say how you want it done, and the agent follows.
 
-Send it again after each round. An intent stays open until something the agent suggested carries it out, or you settle it. When nothing is open (every intent worked out, no question unanswered, no suggestion waiting, and the check clean), press **Mark ready**.
+## Take turns with your agent
+
+The panel beside the map is a conversation, a turn each. Everything you add goes to your agent as you add it, so there's no list to review and send. The header says whose turn it is: **Your turn**, **Sent · waiting for your agent** (it picks it up with `archdoc plan wait`), or **Agent is working** once it has read your turn.
+
+Each thing you said is a message from you, with the agent's answer under it:
+
+- **Suggested changes and flows** that carry it out, by the names on the map ("Checkout → Order events: Publishes ReceiptRequested"), drawn dashed on the map. **Accept** one to make it part of the plan, or **Dismiss** it. A dismissed suggestion stays in the file, so it isn't suggested again.
+- **Notes** about it: an *insight* it found in the code, a *question* you need to decide, or a *risk*.
+
+Turns where nothing waits on you fold to a line; click one to open it. The box at the bottom answers the agent's open question, or says something new (about the box you selected in Explore, or the system), and sends it. A question with options shows them as buttons: one tap answers it, settles it, and sends it.
+
+Your agent checks each intent against the code and carries out what it says, no more. It never changes what you wrote: a box you drew stays yours, and it suggests what the box needs beside it (its arrows, data, and code). Where an intent leaves a design choice open (which store, sync or queued, a new element or an existing one), it asks, one question at a time, naming the options and what each costs, and suggests once you answer. For an intent about how two parts connect, it answers with an arrow between them, or a new part in between. It can't suggest anything that isn't for one of your intents: `archdoc plan respond` refuses it, and refuses any suggestion before you've said what you want. Answering hands the turn back to you, and it waits for your next turn at once.
+
+An intent stays open until something the agent suggested carries it out, or you settle it. When nothing is open (every intent worked out, no question unanswered, no suggestion waiting, and the check clean), press **Mark ready**. What the plan reaches, its check, and its tasks are under the fold at the bottom of the panel.
 
 ## What check finds
 
@@ -114,7 +125,9 @@ tasks:
   - { id: t1, title: Add the renderer, from: [c1, c2], files: [packages/pdf/src/index.ts], tests: [packages/pdf/test/render.test.ts] }
 unread:                    # what you changed since the agent last read it
   - { id: n1, what: replied }
-sent: 2
+sent: 2                    # the rounds you've sent
+seen: 2                    # the round the agent last read
+answered: 1                # the round it last answered: sent ahead of it is the agent's turn
 ```
 
 ## Commands
@@ -124,8 +137,8 @@ sent: 2
 | `archdoc plan start <idea>` | `archdoc_plan` `start` | Starts a plan, with its scope |
 | `archdoc plan list` | `archdoc_plan` `list` | Lists plans and what's open on each |
 | `archdoc plan read <id>` | `archdoc_plan` `read` | Reads a plan, what you changed first. `--peek` leaves it unread |
-| `archdoc plan wait <id>` | `archdoc_plan` `wait` | Waits until you send it, then reads it |
-| `archdoc plan respond <id> '<ops>'` | `archdoc_plan` `respond` | The agent's answer: suggested changes and sequences for each intent, notes, replies, and tasks |
+| `archdoc plan wait <id>` | `archdoc_plan` `wait` | Waits for your next turn, then reads it |
+| `archdoc plan respond <id> '<ops>'` | `archdoc_plan` `respond` | The agent's answer: suggested changes and sequences for each intent, notes, replies, and tasks. It hands the turn back |
 | `archdoc plan task <id> <task>` | `archdoc_plan` `task` | Sets a task's status |
 
 `archdoc view` writes your edits to the plan file. It takes them only from the explorer's own page, and only against the version the page last read, so you and your agent never write over each other. A site built with `archdoc site` shows plans read-only.
