@@ -15,7 +15,7 @@ With `--watch`, it updates as you save model files and shows any problems at the
 
 ## Start from what people do
 
-The explorer opens on an **Overview**: what the system does, its journeys as cards (most important first, each with the path it takes and how many steps, repos, and decisions it has), and who owns what, beside a map of the top level. Hover a journey to light its path on the map.
+The explorer opens on an **Overview**: what the system does, its journeys as cards (under their sections, most important first, each with the path it takes and how many steps, repos, and decisions it has), and who owns what, beside a map of the top level. Hover a journey to light its path on the map.
 
 On the map, a box's shape says what it is: actors are pills, datastores have a lid, and what lives in another repo is dashed. Its color says what kind it is: people, AI agents, and automated systems that call in each have one, as does each kind of element. The **Key and layout** box in the corner names the colors, turns the map top down or left to right, and turns the lines' descriptions on and off. Click a box to see what it uses, who uses it, and which journeys pass through it; open it to see what's inside, one level at a time. Each element links to its code paths and snippets, down to the lines that hold its logic.
 
@@ -23,7 +23,7 @@ In a repository that keeps [seals](./agents.md#seals-what-to-re-check-when-code-
 
 ## Read a journey as a story
 
-The **Journeys** tab draws a journey as lanes, one per participant, with a numbered arrow per step and the data it sends. After a decision, the steps that follow are grouped by outcome, each labelled with its condition, so branches read as branches. The panel beside it shows one step at a time: what it does, between whom and through which contract, the message's fields with their values, the records it writes, and its code.
+The **Journeys** tab lists the journeys under their sections (the `section` each names; with many and none named, by the part of the system they run in) and draws a journey as lanes, one per participant, with a numbered arrow per step and the data it sends. After a decision, the steps that follow are grouped by outcome, each labelled with its condition, so branches read as branches. The panel beside it shows one step at a time: what it does, between whom and through which contract, the message's fields with their values, the records it writes, and its code.
 
 "Show on map" plays it on the system map instead. A step that doesn't follow a use is drawn straight across between its boxes, in red, with the error in the step's panel.
 
@@ -35,7 +35,7 @@ Switch the entry to **Map** to see it on the system map: a message lights up the
 
 ## Plan a change
 
-The **Plan** tab, under Build, is where you design a change with your agent. It draws the model as it would be with the [plan](./plan.md) made. It shows only what the plan touches, with the whole system a tap away. Click in a box, and a small popover opens where you clicked: say what you want there, and it's pinned to the spot. Click an arrow, or drag from one box to another, to say what should change between them. You drive the design: once you send it, your agent turns each into the elements, arrows, and flows that carry it out, asking where you left a choice open (one tap on an option answers), and they show up on the map dashed, for you to accept or dismiss, with its notes beside them. **Send to agent** hands it what you said; **Mark ready** says the plan is agreed.
+The **Plan** tab, under Build, is where you design a change with your agent. It draws the model as it would be with the [plan](./plan.md) made, showing only what the plan touches, with the whole system a tap away. In **Add**, a click opens a small menu where you clicked: **New element** draws a box with what it's for, one you can drag arrows to straight away, **New note** pins what you want there, and **Details** reads the box. Click an arrow, or drag from one box to another, to say what should change between them. **Explore** (E) switches clicks to reading the boxes. Everything you add goes to your agent at once, and the panel beside the map is the conversation: each thing you said with its answer under it (suggestions to accept or dismiss, questions to answer with a tap), and a box at the bottom for your next turn. The header says whose turn it is; **Mark ready** says the plan is agreed.
 
 ## Walk through a bug
 

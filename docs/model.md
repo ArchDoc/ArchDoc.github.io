@@ -61,7 +61,7 @@ Elements can also name their `owners` (actors of kind `team`, defined in the mod
 
 ## Journeys: how actors reach their goals
 
-A journey is how an actor reaches a goal, step by step across elements. `importance` (`critical`, `high`, or `normal`) ranks it when a change affects it.
+A journey is how an actor reaches a goal, step by step across elements. `importance` (`critical`, `high`, or `normal`) ranks it when a change affects it. `section` names the topic it belongs to, such as Checkout or Accounts: the explorer lists journeys under their sections, so a model with many reads by what they're about. Give one to every journey once there are more than eight; `archdoc check --done` asks for them.
 
 ```yaml
 journeys:
@@ -69,6 +69,7 @@ journeys:
     actor: passenger
     goal: Get a ride to a destination
     importance: critical
+    section: Rides
     steps:
       - { from: passenger, to: mobile-app, action: Enters destination and confirms }
       - { from: mobile-app, to: api-gateway, action: POST /trips }
