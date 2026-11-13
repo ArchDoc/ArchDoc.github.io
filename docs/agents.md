@@ -133,7 +133,7 @@ A seal says someone checked; it isn't proof they were right. That's why the [pul
 
 ## Planning a change
 
-Ask your agent to plan or design a change, and it starts with `archdoc_plan` instead of writing a markdown plan. It opens the explorer's Plan tab, where you click in the boxes on the map and say what you want there, and waits for you to send it. You drive the design: it suggests nothing until you've sent what you want. It then carries out each thing you asked for, checked against the code, and answers on the map: suggested elements, arrows, and steps that carry it out, for you to accept or dismiss, questions where you left a choice open, and insights and risks pinned to what they're about. It never changes what you wrote. Once you mark the plan ready, it writes the tasks, works through them, and edits the model as each lands. See [Plan](./plan.md).
+Ask your agent to plan or design a change, and it starts with `archdoc_plan` instead of writing a markdown plan. It opens the explorer's Plan tab, where you click in the boxes on the map (or on an arrow, or drag between two boxes) and say what you want there, and waits for you to send it. You drive the design: it suggests nothing until you've sent what you want. It then carries out each thing you asked for, checked against the code, and answers on the map: suggested elements, arrows, and steps that carry it out, for you to accept or dismiss, questions where you left a choice open, with options you tap, and insights and risks pinned to what they're about. It never changes what you wrote. Once you mark the plan ready, it writes the tasks, works through them, and edits the model as each lands. See [Plan](./plan.md).
 
 ## Triaging a bug
 

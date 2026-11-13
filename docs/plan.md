@@ -22,9 +22,10 @@ Starting a plan writes it with status `drafting`, with the parts of the model th
 
 ## Say what you want on the map
 
-The Plan tab draws the model as it would be with your plan made, with the same marks as the Diff tab: new parts marked added, changed ones changed.
+The Plan tab draws the model as it would be with your plan made, with the same marks as the Diff tab: new parts marked added, changed ones changed. It shows only what the plan touches: your intents, the changes and flows for them, and what those connect to (before your first intent, the parts the idea landed on). **Show the whole system** in the header brings back the rest, and so does picking a level.
 
 - **Say what you want somewhere:** click in a box, or on the map for the system as a whole. A small popover opens where you clicked. Write what you want there, such as "email the shopper a receipt once the charge goes through", and press Enter. It becomes an **intent** (`i1`), pinned to that spot.
+- **Say how two parts connect:** click the arrow between them (or its label), or drag from one box to another, whether or not they're connected yet. The popover asks what should change between them, and the intent is pinned halfway between the two boxes. Dragging empty space still moves the map.
 - **Add as many as you like:** each one goes where you click. Click a pin to change or remove it. A box's panel also has **Say what you want here**.
 - **Leave a note:** on a box, an intent, or the plan as a whole, for what you mean or what you're unsure of.
 
@@ -37,7 +38,7 @@ Your agent waits for you to send it (`archdoc plan wait`), then reads what you c
 - **Notes** pinned to what they're about: an *insight* it found in the code, a *question* you need to decide, or a *risk*. Reply to any of them, answer a question, and resolve it when it's settled.
 - **Suggested changes and flows:** the elements, arrows, and journey steps that carry out each intent, drawn dashed and marked with the intent they're for. Click an intent to see them. **Accept** one to make it part of the plan, or **Dismiss** it. A dismissed suggestion stays in the file, so it isn't suggested again.
 
-It never changes what you wrote. Where an intent leaves a design choice open (which store, sync or queued, a new element or an existing one), it asks with a question that names the options and what each costs, and suggests once you answer. It can't suggest anything that isn't for one of your intents: `archdoc plan respond` refuses it, and refuses any suggestion before you've sent your first intent.
+It never changes what you wrote. Where an intent leaves a design choice open (which store, sync or queued, a new element or an existing one), it asks with a question that names the options and what each costs, shown as buttons: one tap answers it, settles it, and sends the plan back (or answer in your own words). It suggests once you answer. For an intent about how two parts connect, it answers with an arrow between them, or a new part in between. It can't suggest anything that isn't for one of your intents: `archdoc plan respond` refuses it, and refuses any suggestion before you've sent your first intent.
 
 Send it again after each round. An intent stays open until something the agent suggested carries it out, or you settle it. When nothing is open (every intent worked out, no question unanswered, no suggestion waiting, and the check clean), press **Mark ready**.
 
@@ -73,6 +74,11 @@ intents:                   # what you want, where you clicked
     at: { x: 40, y: 60 }   # where in the box, in percent
     by: human:@dana
     text: Export the journey I'm looking at as a PDF from the command line
+  - id: i2
+    on: toolchain.cli
+    to: toolchain.web      # about how two boxes connect: an arrow you clicked, or a drag
+    by: human:@dana
+    text: The explorer's Export button uses the same renderer as the command
 changes:                   # each one archdoc edit op: add, set, remove, rename, or use
   - id: c1
     by: agent:claude-code
@@ -99,6 +105,9 @@ notes:
     by: agent:claude-code
     kind: question         # note, insight, question, risk, answer
     text: Headless Chromium, or render the SVG the explorer already draws?
+    options:               # shown as buttons; one tap answers
+      - Headless Chromium, 150 MB
+      - The SVG the explorer draws
     replies:
       - { by: human:@dana, kind: answer, text: The SVG }
 tasks:

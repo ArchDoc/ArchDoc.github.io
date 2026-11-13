@@ -35,7 +35,7 @@ Switch the entry to **Map** to see it on the system map: a message lights up the
 
 ## Plan a change
 
-The **Plan** tab, under Build, is where you design a change with your agent. It draws the model as it would be with the [plan](./plan.md) made. Click in a box, and a small popover opens where you clicked: say what you want there, and it's pinned to the spot. You drive the design: once you send it, your agent turns each into the elements, arrows, and flows that carry it out, asking where you left a choice open, and they show up on the map dashed, for you to accept or dismiss, with its notes beside them. **Send to agent** hands it what you said; **Mark ready** says the plan is agreed.
+The **Plan** tab, under Build, is where you design a change with your agent. It draws the model as it would be with the [plan](./plan.md) made. It shows only what the plan touches, with the whole system a tap away. Click in a box, and a small popover opens where you clicked: say what you want there, and it's pinned to the spot. Click an arrow, or drag from one box to another, to say what should change between them. You drive the design: once you send it, your agent turns each into the elements, arrows, and flows that carry it out, asking where you left a choice open (one tap on an option answers), and they show up on the map dashed, for you to accept or dismiss, with its notes beside them. **Send to agent** hands it what you said; **Mark ready** says the plan is agreed.
 
 ## Walk through a bug
 
