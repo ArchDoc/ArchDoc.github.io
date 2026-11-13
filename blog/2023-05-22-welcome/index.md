@@ -6,7 +6,7 @@ tags: [archdoc, announcement]
 ---
 
 :::note Historical post
-This post is from 2023 and describes ArchDoc v0: the v1.0 specification and the `@archdoc/archdoc-ui` viewer. v0 is frozen on the [`legacy/v0`](https://github.com/ArchDoc/archdoc/tree/legacy/v0) branch, and its docs are kept as [v0 (legacy)](/docs/v0/specification/). For what ArchDoc is today, see the [introduction](/docs/).
+This post is from 2023 and describes ArchDoc v0: the v1.0 specification and the `@archdoc/archdoc-ui` viewer. v0 is frozen on the [`legacy/v0`](https://github.com/ArchDoc/archdoc/tree/legacy/v0) branch, and its docs are [archived](/v0). For what ArchDoc is today, see the [introduction](/docs/).
 :::
 
 

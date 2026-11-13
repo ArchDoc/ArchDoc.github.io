@@ -5,6 +5,8 @@ import Layout from '@theme/Layout';
 import CodeBlock from '@theme/CodeBlock';
 
 import styles from './index.module.css';
+// Real output, from scripts/build-demo.mjs (npm run demo).
+import {brief, comment} from '../data/demo';
 
 const repo = 'https://github.com/ArchDoc/archdoc';
 
@@ -138,6 +140,72 @@ function Hero() {
   );
 }
 
+/** The comment's first blocking issue: its headline, title, message, and fix. */
+function firstBlock(md: string) {
+  const lines = md.split('\n');
+  const headline = (lines.find((l) => l.startsWith('⛔')) ?? '').replace(/\*\*/g, '');
+  const quote = lines
+    .slice(lines.findIndex((l) => l.startsWith('> [!CAUTION]')) + 1)
+    .filter((_, i, all) => all.slice(0, i + 1).every((l) => l.startsWith('> ')))
+    .map((l) => l.slice(2));
+  const [title = '', message = '', fix = ''] = quote;
+  return {
+    headline,
+    title: title.replace(/\*\*/g, ''),
+    message,
+    fix: fix.replace(/ · `[^`]+`$/, '').replace(/^To fix: /, ''),
+  };
+}
+
+function Story() {
+  const block = firstBlock(comment);
+  return (
+    <section className={styles.section}>
+      <div className="container">
+        <h2>Thirty seconds</h2>
+        <p className={styles.intro}>
+          A shop's agent is asked to send each order to an analytics tool. This
+          is what ArchDoc tells it, and what the pull request gets. Both are
+          real output, from the CLI on a small repository.
+        </p>
+        <div className="row">
+          <div className="col col--6">
+            <h3>Before it edits</h3>
+            <p>
+              The agent asks <code>archdoc_context</code> where to start. It
+              gets the files and functions, the critical journey they're on, and
+              the rule that keeps personal data in the shop.
+            </p>
+            <CodeBlock className={styles.brief}>{brief.trim()}</CodeBlock>
+          </div>
+          <div className="col col--6">
+            <h3>Before it merges</h3>
+            <p>
+              The agent sends the whole order anyway, email included. The pull
+              request gets one comment, and it blocks.
+            </p>
+            <div className={styles.comment}>
+              <p className={styles.verdict}>{block.headline}</p>
+              <div className={styles.caution}>
+                <strong>{block.title}</strong>
+                <p>{block.message}</p>
+                <p>
+                  <em>To fix:</em> {block.fix}
+                </p>
+              </div>
+            </div>
+            <p>
+              <Link to="pathname:///demo/#changes">Open this change in the explorer</Link>,
+              built with <code>archdoc site</code>. It's the same page a pull
+              request can link to.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Why() {
   return (
     <section className={styles.section}>
@@ -259,7 +327,7 @@ function Status() {
           ArchDoc v2 is under active development. The v0 viewer is frozen at{' '}
           <Link href={`${repo}/releases/tag/v0.2.0`}>v0.2.0</Link> on the{' '}
           <Link href={`${repo}/tree/legacy/v0`}>legacy/v0</Link> branch, and its
-          docs are kept as <Link to="/docs/v0/archdoc-ui/">v0 (legacy)</Link>.
+          docs are <Link to="/v0">archived</Link>.
         </p>
       </div>
     </section>
@@ -273,6 +341,7 @@ export default function Home(): JSX.Element {
       description="ArchDoc keeps a human-owned architecture model next to the code, and answers what a change affects for coding agents, reviewers, and everyone learning the system.">
       <Hero />
       <main>
+        <Story />
         <Why />
         <Model />
         <Surfaces />

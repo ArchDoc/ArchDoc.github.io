@@ -94,3 +94,36 @@
     padding: 2.5rem 0;
   }
 }
+
+.brief {
+  font-size: 0.8rem;
+}
+
+/* The brief wraps, so its rule line is always in view. */
+.brief pre,
+.brief code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.comment {
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  background: var(--ifm-background-surface-color);
+}
+
+.verdict {
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.caution {
+  padding: 0.5rem 1rem;
+  border-left: 4px solid #cf222e;
+}
+
+.caution p {
+  margin: 0.5rem 0 0;
+}
