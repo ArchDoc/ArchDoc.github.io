@@ -6,8 +6,6 @@ import CodeBlock from '@theme/CodeBlock';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 import styles from './index.module.css';
-// Real output, from scripts/build-demo.mjs (npm run demo).
-import {brief, comment} from '../data/demo';
 
 const repo = 'https://github.com/ArchDoc/archdoc';
 const install = 'npx -y @archdoc/cli init';
@@ -45,7 +43,6 @@ const loop = [
 
 type Tab = {
   id: string;
-  group: 'Explore' | 'Build';
   label: string;
   title: string;
   body: string;
@@ -55,45 +52,14 @@ type Tab = {
   to: string;
 };
 
-const tabs: Tab[] = [
-  {
-    id: 'plan',
-    group: 'Build',
-    label: 'Plan',
-    title: 'Design the change on the map, with your agent',
-    body: 'Click where the change belongs and say what you want. Your agent checks it against the code and answers in the same thread: proposed boxes and arrows you accept or dismiss, and a question with one-tap options when a design choice is yours to make.',
-    points: [
-      'Add or Explore, from a menu where you click',
-      'A turn-by-turn conversation, one question at a time',
-      'Mark it ready, and the agent builds it task by task',
-    ],
-    img: '/img/v1/plan.png',
-    alt: 'The Plan tab: a receipt mailer proposed on the map, with the agent asking who sends the email',
-    to: '/docs/plan',
-  },
-  {
-    id: 'triage',
-    group: 'Build',
-    label: 'Triage',
-    title: 'Hand your agent a bug, get a root cause on the record',
-    body: 'Paste an error, a stack trace, or what went wrong. The explorer places it on the system, and your agent follows it hop by hop with evidence until it reaches the cause, then commits the record with the fix.',
-    points: [
-      'Find the root cause, or fix it, in one click',
-      'Every hop backed by code and evidence',
-      'Records stay in the repo, checked like the model',
-    ],
-    img: '/img/v1/triage.png',
-    alt: 'The Triage tab with a stack trace pasted and a menu to send it to the agent',
-    to: '/docs/triage',
-  },
+const exploreTabs: Tab[] = [
   {
     id: 'overview',
-    group: 'Explore',
     label: 'Overview',
-    title: 'Start from what people do',
-    body: 'Open any repository and see what the system is for: its journeys as cards, most important first, beside a C4 map you open one level at a time. Hover a journey to light up its path.',
+    title: 'Start from the C4 context',
+    body: 'See what the system is and who uses it: each system as one box, with the people and external systems around it, beside its journeys, most important first. Hover a journey to light up its path.',
     points: [
-      'Context, containers, and components, one level at a time',
+      'Context, containers, and components: open one level at a time',
       'Shapes and colors say what each box is',
       'Click through from any box to its code',
     ],
@@ -103,7 +69,6 @@ const tabs: Tab[] = [
   },
   {
     id: 'journeys',
-    group: 'Explore',
     label: 'Journeys',
     title: 'Read a journey like a story',
     body: 'Every journey plays step by step on the system map, or as lanes in a sequence: what each step does, the message it sends, the records it writes, and the code behind it.',
@@ -118,7 +83,6 @@ const tabs: Tab[] = [
   },
   {
     id: 'data',
-    group: 'Explore',
     label: 'Data',
     title: 'See what your system sends and stores',
     body: 'Every record, message, and event, where it lives and what carries it, with sensitive fields classified. Pick an entry for its schema and everything that makes, stores, and reads it.',
@@ -133,7 +97,6 @@ const tabs: Tab[] = [
   },
   {
     id: 'infrastructure',
-    group: 'Explore',
     label: 'Infrastructure',
     title: 'See where it all runs',
     body: 'Each environment as a map: clouds, regions, clusters, namespaces, and managed services, with every container and datastore placed where it is deployed, and the traffic between them.',
@@ -215,9 +178,9 @@ const trust = [
     body: 'The explorer answers only on your own machine, and your own agent does the reasoning. The model never leaves the repo.',
   },
   {
-    stat: 'Signed',
-    label: 'releases',
-    body: 'Published to npm with trusted publishing, every GitHub Action pinned by commit, and integrations pinned to the CLI released with them.',
+    stat: 'Yours',
+    label: 'plain YAML',
+    body: 'The model lives in your repository next to the code, versioned and reviewed like it, and owned by the people who build the system.',
   },
 ];
 
@@ -298,11 +261,11 @@ function Hero() {
     <header className={styles.hero}>
       <div className={styles.heroGlow} aria-hidden="true" />
       <div className={clsx('container', styles.heroInner)}>
-        <Link className={styles.badge} to="/docs/">
+        <a className={styles.badge} href="#explore">
           <span className={styles.badgeTag}>1.0</span>
-          Plan, Triage, and Diff, in one explorer your agent shares
+          Explore, Triage, and Plan, on one map you share with your agent
           <span aria-hidden="true"> →</span>
-        </Link>
+        </a>
         <h1 className={styles.headline}>
           Understand your architecture
           <span className={styles.headlineAccent}>while AI builds it.</span>
@@ -417,101 +380,35 @@ function Loop() {
   );
 }
 
-/** The comment's first blocking issue: its headline, title, message, and fix. */
-function firstBlock(md: string) {
-  const lines = md.split('\n');
-  const headline = (lines.find((l) => l.startsWith('⛔')) ?? '').replace(/\*\*/g, '');
-  const quote = lines
-    .slice(lines.findIndex((l) => l.startsWith('> [!CAUTION]')) + 1)
-    .filter((_, i, all) => all.slice(0, i + 1).every((l) => l.startsWith('> ')))
-    .map((l) => l.slice(2));
-  const [title = '', message = '', fix = ''] = quote;
-  return {
-    headline,
-    title: title.replace(/\*\*/g, ''),
-    message,
-    fix: fix.replace(/ · `[^`]+`$/, '').replace(/^To fix: /, ''),
-  };
-}
-
-function Story() {
-  const block = firstBlock(comment);
+function Explore() {
+  const [active, setActive] = useState(exploreTabs[0].id);
+  const tab = exploreTabs.find((t) => t.id === active) ?? exploreTabs[0];
   return (
-    <section className={styles.section}>
+    <section id="explore" className={clsx(styles.section, styles.alt)}>
       <div className="container">
-        <p className={styles.kicker}>Thirty seconds, real output</p>
-        <h2 className={styles.h2}>Your agent knows where it is. You know what it changed.</h2>
+        <p className={styles.kicker}>Explore</p>
+        <h2 className={styles.h2}>See your whole architecture, one C4 level at a time.</h2>
         <p className={styles.intro}>
-          A shop's agent is asked to send each order to an analytics tool. Both
-          panels are real ArchDoc output on a small repository.
+          <code>archdoc view</code> opens your system in the browser. Start at
+          the C4 context: the system, the people who use it, and what it talks
+          to. Open it for its containers, open a container for its components,
+          and click through any box to its code. Journeys, data, and
+          infrastructure are one tab away.
         </p>
-        <div className={styles.storyGrid}>
-          <div className={styles.storyCard}>
-            <div className={styles.storyHead}>
-              <span className={styles.step}>Before it edits</span>
-              <code>archdoc_context</code>
-            </div>
-            <CodeBlock className={styles.brief}>{brief.trim()}</CodeBlock>
+        <div className={styles.tabs} role="tablist" aria-label="Explore">
+          <div className={styles.tabGroup}>
+            {exploreTabs.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                aria-selected={t.id === active}
+                className={clsx(styles.tab, t.id === active && styles.tabActive)}
+                onClick={() => setActive(t.id)}>
+                {t.label}
+              </button>
+            ))}
           </div>
-          <div className={styles.storyCard}>
-            <div className={styles.storyHead}>
-              <span className={styles.step}>After it edits</span>
-              <code>archdoc_check</code>
-            </div>
-            <div className={styles.comment}>
-              <p className={styles.verdict}>{block.headline}</p>
-              <div className={styles.caution}>
-                <strong>{block.title}</strong>
-                <p>{block.message}</p>
-                <p>
-                  <em>To fix:</em> {block.fix}
-                </p>
-              </div>
-            </div>
-            <p className={styles.storyFoot}>
-              The agent sent the whole order anyway, email included. The
-              check catches it before anyone has to.{' '}
-              <Link to="pathname:///demo/#changes">Open this change in the explorer →</Link>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Showcase() {
-  const [active, setActive] = useState('overview');
-  const tab = tabs.find((t) => t.id === active) ?? tabs[0];
-  return (
-    <section className={clsx(styles.section, styles.alt)}>
-      <div className="container">
-        <p className={styles.kicker}>See it as it's built</p>
-        <h2 className={styles.h2}>One map of your system, shared with your agent.</h2>
-        <p className={styles.intro}>
-          <code>archdoc view</code> opens it in your browser. Explore shows the
-          system as the model describes it; Build is where you plan a change,
-          triage a bug, and diff two branches, with your agent on the other end.
-        </p>
-        <div className={styles.tabs} role="tablist">
-          {(['Explore', 'Build'] as const).map((g) => (
-            <div key={g} className={styles.tabGroup}>
-              <span className={styles.tabGroupLabel}>{g}</span>
-              {tabs
-                .filter((t) => t.group === g)
-                .map((t) => (
-                  <button
-                    key={t.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={t.id === active}
-                    className={clsx(styles.tab, t.id === active && styles.tabActive)}
-                    onClick={() => setActive(t.id)}>
-                    {t.label}
-                  </button>
-                ))}
-            </div>
-          ))}
         </div>
         <div className={styles.showcase}>
           <div className={styles.showcaseText}>
@@ -522,9 +419,76 @@ function Showcase() {
                 <li key={p}>{p}</li>
               ))}
             </ul>
-            <Link to={tab.to}>Read about {tab.label} →</Link>
+            <Link to={tab.to}>Read about the explorer →</Link>
           </div>
           <Window key={tab.id} src={tab.img} alt={tab.alt} className={styles.showcaseShot} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Triage() {
+  return (
+    <section id="triage" className={styles.section}>
+      <div className="container">
+        <div className={clsx(styles.feature, styles.featureFlip)}>
+          <div className={styles.showcaseText}>
+            <p className={styles.kicker}>Triage</p>
+            <h2 className={styles.h2}>Your agent shows you why the bug happened.</h2>
+            <p>
+              Paste an error, a stack trace, or what went wrong, and send it to
+              your agent. It follows the bug through your system hop by hop,
+              with evidence at every step, and draws the path on your
+              architecture: the step where it went wrong, what it carried, what
+              was observed, and what was expected.
+            </p>
+            <ul className={styles.ticks}>
+              <li>The bug's path drawn as a map or a sequence</li>
+              <li>The root cause marked, with the code behind it</li>
+              <li>Observed and expected, side by side</li>
+              <li>A record kept in the repo, with the fix</li>
+            </ul>
+            <Link to="/docs/triage">Read about Triage →</Link>
+          </div>
+          <Window
+            src="/img/v1/triage.png"
+            alt="A Triage record drawn as a sequence: four steps across the agent, MCP, analyzers, and the model editor, with the root cause highlighted at step 3"
+            className={styles.showcaseShot}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Plan() {
+  return (
+    <section id="plan" className={clsx(styles.section, styles.alt)}>
+      <div className="container">
+        <div className={styles.feature}>
+          <div className={styles.showcaseText}>
+            <p className={styles.kicker}>Plan</p>
+            <h2 className={styles.h2}>Craft the implementation plan with your agent, on the map.</h2>
+            <p>
+              Skip the long markdown plan. Click where the change belongs and
+              say what you want. Your agent checks it against the code and
+              answers in turn: the boxes and arrows that carry it out, for you
+              to accept or dismiss, and a question with one-tap options
+              whenever a design choice is yours to make.
+            </p>
+            <ul className={styles.ticks}>
+              <li>You drive the design; the agent proposes nothing you didn't ask for</li>
+              <li>A turn-by-turn conversation, one question at a time</li>
+              <li>Mark it ready, and the agent builds it task by task</li>
+            </ul>
+            <Link to="/docs/plan">Read about Plan →</Link>
+          </div>
+          <Window
+            src="/img/v1/plan.png"
+            alt="The Plan tab: a receipt mailer proposed on the map, with the agent asking who sends the email"
+            className={styles.showcaseShot}
+          />
         </div>
       </div>
     </section>
@@ -639,9 +603,10 @@ export default function Home(): JSX.Element {
       <main>
         <Strip />
         <Problem />
-        <Showcase />
+        <Explore />
+        <Triage />
+        <Plan />
         <Loop />
-        <Story />
         <Capabilities />
         <Model />
         <Trust />

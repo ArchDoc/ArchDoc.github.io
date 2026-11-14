@@ -440,6 +440,8 @@
 
 .tabGroup {
   display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   align-items: center;
   gap: 0.25rem;
   padding: 0.3rem;
@@ -532,6 +534,27 @@
     opacity: 1;
     transform: none;
   }
+}
+
+/* ---------- Feature sections (Triage, Plan) ---------- */
+
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.featureFlip {
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+}
+
+.featureFlip > :first-child {
+  order: 2;
+}
+
+.feature .h2 {
+  font-size: clamp(1.7rem, 2.8vw, 2.35rem);
 }
 
 /* ---------- Story ---------- */
@@ -746,6 +769,8 @@
   .problemGrid,
   .showcase,
   .storyGrid,
+  .feature,
+  .featureFlip,
   .split {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -758,6 +783,10 @@
 
   .loopStep + .loopStep::before {
     display: none;
+  }
+
+  .featureFlip > :first-child {
+    order: 0;
   }
 }
 
