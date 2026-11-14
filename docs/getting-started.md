@@ -92,7 +92,7 @@ For editor validation, `archdoc schema -o archdoc.schema.json` writes the JSON S
 | `archdoc plan start <idea>` | Start a [plan](./plan.md) to design a change with your agent in the explorer's Plan tab. `archdoc plan list` lists them |
 | `archdoc triage start <file>` | Start a [Triage record](./triage.md) from a bug report. `archdoc triage list` lists them, open ones first, and `archdoc triage wait` picks up a bug sent from the explorer |
 | `archdoc map` | How the repository's files map onto the model, and which files no element claims |
-| `archdoc check` | What's wrong or stale: model problems, dependencies the model doesn't declare, broken rules and journeys, stale code paths, Triage records, and sealed facts whose code changed. `--base main` says what your change does, with the PR comment's verdict |
+| `archdoc check` | What's wrong or stale: model problems, dependencies the model doesn't declare, broken rules and journeys, stale code paths, Triage records, and sealed facts whose code changed. `--base main` says what your change does, with a verdict |
 | `archdoc seal <fact>` | Record that a fact still describes its code. `archdoc seal --all` starts sealing; `archdoc check --seals` lists what to re-check |
 | `archdoc diff <ref>` | What changed in the model, by element, relationship, actor, and journey |
 | `archdoc report --base main` | Your branch's architectural impact, as markdown for a pull request |
@@ -100,7 +100,8 @@ For editor validation, `archdoc schema -o archdoc.schema.json` writes the JSON S
 | `archdoc publish <version>` | [Experimental](./landscape.md): write the bundle other repositories import |
 | `archdoc landscape build` | [Experimental](./landscape.md): in a landscape repository, check the composed model and write the explorer as a static site |
 | `archdoc mcp` | Start the MCP server for coding agents |
-| `archdoc migrate <file>` | Convert a v0 or v1 model to v2 |
+| `archdoc migrate <file>` | Convert a v0 model (ArchDoc 0.2 and earlier) to the current format |
 | `archdoc schema` | Print the JSON Schema for model files |
+| `archdoc eval` | Replay recent commits through `archdoc context`: how often it pointed at the files each one changed |
 
 Most commands take `--json` for scripts and agents.
