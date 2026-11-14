@@ -15,7 +15,7 @@ ArchDoc doesn't run an LLM of its own. Your agent does the reasoning; ArchDoc gi
 |---|---|---|
 | `archdoc_context` | Where do I start, and what does it affect? From the task in words, the files to change (even ones that don't exist yet), or an error. With nothing, an overview | `archdoc context` |
 | `archdoc_show` | What is this one thing? An element (with its code), actor, journey, data entry, `Entry.field` (its lineage), Triage record, or sealed fact | `archdoc show <id>` |
-| `archdoc_check` | What's wrong or stale? With a base, what does my change do: the verdict the [pull request comment](./reviewers.md) will give, each finding with its fix | `archdoc check --base main` |
+| `archdoc_check` | What's wrong or stale? With a base, what does my change do: a verdict, then each finding with its fix | `archdoc check --base main` |
 | `archdoc_seal` | I checked these facts against their code. Says what's left | `archdoc seal <fact>` |
 | `archdoc_plan` | Design a change with the person: start a plan, wait for what they want, read it, answer with suggested changes and notes, and carry out its tasks | `archdoc plan` |
 | `archdoc_init` | There's no model yet: start one | `archdoc init` |
@@ -29,7 +29,7 @@ The skill and the `AGENTS.md` snippet teach agents the same loop, in three or fo
 1. **Start with context.** `archdoc_context` with the task in a few words, the files it plans to change, or both, returns a short brief: the files and functions to open first, other code that does the same job (other callers of the functions those files use), the data and rules involved, the journeys whose steps name those files, the tests to run, the owners, and who uses it. With a [landscape](./landscape.md) synced, that includes other repositories.
 2. **Say what it affects.** The agent names the affected journeys and actors in its plan, and asks you first when a critical journey is involved, the change would break a rule, or another repository uses what it would remove or rename.
 3. **Edit the code and the model together.** When the change adds a component or a dependency on purpose, the agent adds it to `.archdoc/`, marked as a suggestion (below). When it moves or removes one, it updates the model in the same change.
-4. **Check.** `archdoc_check` with base `main` gives the verdict the PR comment will give, then what the change introduced, each with its fix: imports the model doesn't declare, broken rules and journeys, stale code paths, data rules, Triage records, and facts whose code changed since they were sealed. The agent fixes those, or removes a dependency it didn't mean to add, and checks again.
+4. **Check.** `archdoc_check` with base `main` gives a verdict for the branch, then what the change introduced, each with its fix: imports the model doesn't declare, broken rules and journeys, stale code paths, data rules, Triage records, and facts whose code changed since they were sealed. The agent fixes those, or removes a dependency it didn't mean to add, and checks again.
 5. **Seal what it checked.** For each fact whose code changed, the agent reads what changed, updates the model where it no longer holds, then seals it with `archdoc_seal`, which says what's left. The PR comment says who checked. It never seals a fact it hasn't read. See [Seals](#seals-what-to-re-check-when-code-changes).
 
 For the PR description, `archdoc_check` with `format: "markdown"` returns the comment itself.
@@ -87,7 +87,7 @@ uses:
     provenance: { source: suggested, by: agent:claude-code }
 ```
 
-`archdoc_check` catches anything that doesn't validate. Suggested facts show dotted in the explorer and are listed in the [pull request comment](./reviewers.md) as facts to review until a person accepts them by removing the `provenance` block, so the model stays human-owned even when agents write most of the code.
+`archdoc_check` catches anything that doesn't validate. Suggested facts show dotted in the explorer and are listed by `archdoc check --base` as facts to review until a person accepts them by removing the `provenance` block, so the model stays human-owned even when agents write most of the code.
 
 ## Start a model
 

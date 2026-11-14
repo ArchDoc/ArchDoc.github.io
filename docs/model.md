@@ -132,6 +132,37 @@ logic:
 
 With data in the model, `archdoc show Refund.amount_cents` lists every place a value is copied or derived and the tables it lands in. Running a journey on a sample request (simulation) is experimental, and hidden from the CLI and explorer for now.
 
+## Where it runs
+
+Elements say what the system is made of; environments say where it runs. Each environment (production, staging, a developer's machine) holds its infrastructure as nodes inside nodes, such as a cloud region, a cluster, a namespace, or a managed service, each with its `kind`, `technology`, and the `code` that defines it (Terraform, Helm, Kubernetes manifests, compose files). Each container, datastore, and queue says where it's deployed with `deploy`: a node's path, a list of them, or a node with what's true of it there.
+
+```yaml
+environments:
+  production:
+    nodes:
+      aws:
+        kind: region
+        technology: AWS us-east-1
+        nodes:
+          eks: { kind: cluster, technology: EKS 1.30, code: infra/terraform/eks.tf }
+          rds: { kind: managed, technology: Amazon RDS }
+  local:
+    nodes:
+      compose: { kind: host, code: docker-compose.yaml }
+
+elements:
+  api:
+    kind: container
+    deploy:
+      - { to: production.aws.eks, replicas: 3-12, technology: Helm chart, url: "https://api.example.com" }
+      - local.compose
+  db:
+    kind: datastore
+    deploy: [production.aws.rds, local.compose]
+```
+
+The explorer's Infrastructure tab draws one environment at a time: its nodes as boxes inside boxes, each container on the node it runs on, the uses between them lifted from their components and labelled with how they travel, and what they talk to outside the environment (actors, externals, and elements that run elsewhere) around it. The sidebar picks the environment, lists its nodes as a tree, and names the containers that don't say they run there. `archdoc show production.aws.eks` lists a node's infrastructure and what runs on it, and `archdoc show api` says where an element runs (a component runs where its container does). `validate` fails on a `deploy` that names no environment or node, and once a model has environments, warns about a container that doesn't say where it's deployed. `check` warns about deployment code that matches no file, and with seals, a change to a node's or a deployment's code flags it for a re-check. [examples/deployment.yaml](https://github.com/ArchDoc/archdoc/blob/main/examples/deployment.yaml) shows a shop on a CDN, a cluster, and managed services, with staging and local alongside.
+
 ## Rules
 
 Rules say what the architecture must keep true. They live in `.archdoc/rules.yaml` or under `rules:`, and `archdoc check` enforces them on every change. Data rules say where classified data may be stored and where it may never go:
@@ -146,7 +177,7 @@ rules:
 
 ## Who wrote what
 
-Every fact can say where it came from with `provenance`: `declared` (written by a person, the default), `inferred` (found by `archdoc init` or an analyzer), or `suggested` (proposed by an agent and not yet accepted). Inferred and suggested facts show dotted in the explorer and are listed in the pull request report as facts to review until a person accepts them by removing the `provenance` block.
+Every fact can say where it came from with `provenance`: `declared` (written by a person, the default), `inferred` (found by `archdoc init` or an analyzer), or `suggested` (proposed by an agent and not yet accepted). Inferred and suggested facts show dotted in the explorer and are listed by `archdoc check --base` as facts to review until a person accepts them by removing the `provenance` block.
 
 ```yaml
 uses:
@@ -158,3 +189,14 @@ uses:
 ## Other repositories
 
 Elements and data in another repository are referenced by namespace, such as `payments.charges` or `payments.Charge`. [Landscape](./landscape.md) explains how repositories import each other's models.
+
+## The format's version
+
+The first line of the root file names the model format: `archdoc: "2.0"`. It counts separately from ArchDoc's own version, because it changes far less often. A new field arrives with a new minor format (`2.1`), and an older ArchDoc that meets it says to upgrade instead of calling the field unknown. [COMPATIBILITY.md](https://github.com/ArchDoc/archdoc/blob/main/COMPATIBILITY.md) has the details.
+
+For validation and completion in your editor, point the YAML language server at the JSON Schema (`archdoc schema` prints it too):
+
+```yaml
+# yaml-language-server: $schema=https://cdn.jsdelivr.net/npm/@archdoc/spec@1/schema/archdoc.v2.schema.json
+```
+

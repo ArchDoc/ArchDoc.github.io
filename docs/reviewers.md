@@ -5,6 +5,10 @@ description: The GitHub Action that comments on every pull request with its arch
 
 # For reviewers
 
+:::caution Experimental
+The GitHub Action works, but it's experimental: its inputs and its comment may change in a minor release. `archdoc check --base main` and `archdoc report --base main`, under [Without the Action](#without-the-action), are stable. See [Experimental](https://github.com/ArchDoc/archdoc/blob/main/docs/experimental.md).
+:::
+
 A diff shows which lines changed. It doesn't show that those lines sit on the checkout journey, that the payments team owns them, or that another repository calls the API being renamed. The ArchDoc GitHub Action puts that on the pull request before anyone merges.
 
 ## What the comment says
@@ -63,18 +67,6 @@ jobs:
       - uses: ArchDoc/archdoc/integrations/github-action@main
         with:
           fail-on: error # or warning, or never to only comment
-```
-
-Until the packages are published, build ArchDoc in the job, outside your checkout, and point the Action at the build with `command`. These steps go after `setup-node` (Node 22.12 or later):
-
-```yaml
-      - name: Build ArchDoc
-        run: |
-          git clone --depth 1 https://github.com/ArchDoc/archdoc.git "$RUNNER_TEMP/archdoc"
-          cd "$RUNNER_TEMP/archdoc" && corepack enable && pnpm install --frozen-lockfile && pnpm build
-      - uses: ArchDoc/archdoc/integrations/github-action@main
-        with:
-          command: node ${{ runner.temp }}/archdoc/packages/cli/dist/bin.js
 ```
 
 ## Inputs

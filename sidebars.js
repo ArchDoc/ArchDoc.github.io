@@ -10,7 +10,13 @@ const sidebars = {
       type: 'category',
       label: 'Surfaces',
       collapsed: false,
-      items: ['agents', 'plan', 'triage', 'reviewers', 'explorer', 'landscape'],
+      items: ['agents', 'explorer', 'plan', 'triage'],
+    },
+    {
+      type: 'category',
+      label: 'Experimental',
+      collapsed: true,
+      items: ['reviewers', 'landscape'],
     },
   ],
 };
