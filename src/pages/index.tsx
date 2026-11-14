@@ -54,17 +54,17 @@ type Tab = {
 
 const exploreTabs: Tab[] = [
   {
-    id: 'overview',
-    label: 'Overview',
-    title: 'Start from the C4 context',
-    body: 'See what the system is and who uses it: each system as one box, with the people and external systems around it, beside its journeys, most important first. Hover a journey to light up its path.',
+    id: 'containers',
+    label: 'C4 map',
+    title: 'Open it one level at a time',
+    body: 'Start at the context, then open the system for its containers and datastores, and a container for its components. Every arrow says what it carries and how, and the journeys that matter sit beside the map, most important first.',
     points: [
-      'Context, containers, and components: open one level at a time',
+      'Context, containers, and components, the C4 way',
       'Shapes and colors say what each box is',
       'Click through from any box to its code',
     ],
-    img: '/img/v1/overview.png',
-    alt: 'The Overview tab: journeys grouped by section beside the system context map',
+    img: '/img/v1/containers.png',
+    alt: 'The Overview tab at the Containers level: an electricity utility\'s portals, APIs, stream processors, and databases, beside its journeys',
     to: '/docs/explorer',
   },
   {
@@ -263,7 +263,7 @@ function Hero() {
       <div className={clsx('container', styles.heroInner)}>
         <a className={styles.badge} href="#explore">
           <span className={styles.badgeTag}>1.0</span>
-          Explore, Triage, and Plan, on one map you share with your agent
+          Explore your system, triage bugs, and plan changes with your agent
           <span aria-hidden="true"> →</span>
         </a>
         <h1 className={styles.headline}>
@@ -292,8 +292,8 @@ function Hero() {
       </div>
       <div className={clsx('container', styles.heroShot)}>
         <Window
-          src="/img/v1/plan.png"
-          alt="The ArchDoc explorer's Plan tab: a change proposed on the system map while the agent asks a design question"
+          src="/img/v1/overview.png"
+          alt="The ArchDoc explorer's Overview: a shop's journeys grouped by section beside its C4 context map"
         />
       </div>
     </header>

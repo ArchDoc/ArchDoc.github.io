@@ -10,7 +10,7 @@ const repo = 'https://github.com/ArchDoc/archdoc';
 const config = {
   title: 'ArchDoc',
   tagline: 'Understand your architecture while AI builds it.',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/archdoc-mark.svg',
 
   // Set the production url of your site here
   url: 'https://archdoc.github.io',
@@ -82,7 +82,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/archdoc_social_card.jpg',
+      image: 'img/archdoc-social-card.png',
       metadata: [
         {
           name: 'description',
@@ -91,9 +91,10 @@ const config = {
         },
       ],
       navbar: {
+        title: 'ArchDoc',
         logo: {
-          alt: 'ArchDoc logo',
-          src: 'img/archdoc_logo.svg',
+          alt: 'ArchDoc',
+          src: 'img/archdoc-mark.svg',
         },
         items: [
           {
