@@ -50,9 +50,17 @@ body {
 }
 
 .navbar {
-  backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid var(--ad-line);
   box-shadow: none;
+}
+
+/* Blur behind the navbar on wide screens only. A backdrop-filter makes the
+   navbar the containing block for its fixed children, which would trap the
+   mobile menu (.navbar-sidebar) inside the navbar's 4rem. */
+@media (min-width: 997px) {
+  .navbar {
+    backdrop-filter: saturate(180%) blur(12px);
+  }
 }
 
 .navbar__item {
