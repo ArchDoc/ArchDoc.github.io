@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[832],{2747:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/announcement","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"News from the ArchDoc project.","blogTitle":"ArchDoc blog"}')}}]);
