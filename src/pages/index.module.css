@@ -165,6 +165,7 @@
 }
 
 .headlineAccent {
+  display: block;
   background: linear-gradient(90deg, #6fd8ff, #4f8dff 50%, #a98bff);
   -webkit-background-clip: text;
   background-clip: text;

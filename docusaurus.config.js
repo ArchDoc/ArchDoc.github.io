@@ -9,7 +9,7 @@ const repo = 'https://github.com/ArchDoc/archdoc';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'ArchDoc',
-  tagline: "Architecture your AI agents can read, and your PRs can't quietly break.",
+  tagline: 'Understand your architecture while AI builds it.',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -87,7 +87,7 @@ const config = {
         {
           name: 'description',
           content:
-            'ArchDoc keeps a human-owned architecture model next to the code, and answers what a change affects for coding agents, reviewers, and everyone learning the system.',
+            'ArchDoc keeps a living architecture map next to the code, so you can understand your system while AI agents build it.',
         },
       ],
       navbar: {
@@ -134,7 +134,6 @@ const config = {
               {label: 'For agents', to: '/docs/agents'},
               {label: 'Plan', to: '/docs/plan'},
               {label: 'Triage', to: '/docs/triage'},
-              {label: 'For reviewers', to: '/docs/reviewers'},
               {label: 'Explorer', to: '/docs/explorer'},
               {label: 'Landscape', to: '/docs/landscape'},
             ],

@@ -33,7 +33,7 @@ const loop = [
     n: '03',
     name: 'Check',
     cmd: 'archdoc_check',
-    body: 'Before you see the PR, it gets the verdict the PR comment will give: undeclared imports, broken rules and journeys, stale paths, and personal data going somewhere new.',
+    body: 'Before it hands the work back, it checks the change against the model: undeclared dependencies, broken rules and journeys, stale paths, and personal data going somewhere new.',
   },
   {
     n: '04',
@@ -116,6 +116,36 @@ const tabs: Tab[] = [
     alt: 'The Journeys tab playing a checkout journey step by step on the map',
     to: '/docs/explorer',
   },
+  {
+    id: 'data',
+    group: 'Explore',
+    label: 'Data',
+    title: 'See what your system sends and stores',
+    body: 'Every record, message, and event, where it lives and what carries it, with sensitive fields classified. Pick an entry for its schema and everything that makes, stores, and reads it.',
+    points: [
+      'PII, PHI, and PCI fields marked where they travel',
+      'Field lineage from one record to the next',
+      'Schemas read from SQL, Prisma, OpenAPI, and Protobuf',
+    ],
+    img: '/img/v1/data.png',
+    alt: 'The Data tab: a clinical database with its tables, and the messages that travel between parts, with PHI fields marked',
+    to: '/docs/model',
+  },
+  {
+    id: 'infrastructure',
+    group: 'Explore',
+    label: 'Infrastructure',
+    title: 'See where it all runs',
+    body: 'Each environment as a map: clouds, regions, clusters, namespaces, and managed services, with every container and datastore placed where it is deployed, and the traffic between them.',
+    points: [
+      'Production, staging, and local side by side',
+      'Replicas, technology, and URLs on each deployment',
+      'The same elements as the system map, so nothing is drawn twice',
+    ],
+    img: '/img/v1/infrastructure.png',
+    alt: 'The Infrastructure tab: production on AWS with CloudFront, EKS namespaces, RDS, ElastiCache, and SQS',
+    to: '/docs/explorer',
+  },
 ];
 
 const capabilities = [
@@ -125,13 +155,13 @@ const capabilities = [
     to: '/docs/agents',
   },
   {
-    title: 'A PR check that leads with a verdict',
-    body: 'What blocks the merge and how to fix it, what to check, who to involve, and which journeys it touches, in other repos too.',
-    to: '/docs/reviewers',
+    title: 'Seals that catch drift',
+    body: 'Each fact is fingerprinted against its code. When the code moves, ArchDoc says which facts to re-read, so the map never quietly goes stale.',
+    to: '/docs/model',
   },
   {
     title: 'Diff any two branches',
-    body: "Build's Diff tab reads both sides from git: new and changed boxes marked on the map, removed ones as ghosts.",
+    body: "Build's Diff tab reads both sides from git: what your agent's branch changed, with new and changed boxes marked on the map and removed ones as ghosts.",
     to: '/docs/explorer',
   },
   {
@@ -140,8 +170,8 @@ const capabilities = [
     to: '/docs/getting-started',
   },
   {
-    title: 'Data with lineage',
-    body: 'Classified fields, sources read from SQL, Prisma, OpenAPI, and Protobuf, and rules for where personal data may go.',
+    title: 'Rules for where data may go',
+    body: 'Say where classified data may be stored and where it may never go, and every check holds your agents to it.',
     to: '/docs/model',
   },
   {
@@ -274,14 +304,14 @@ function Hero() {
           <span aria-hidden="true"> →</span>
         </Link>
         <h1 className={styles.headline}>
-          Architecture your AI agents can read,
-          <span className={styles.headlineAccent}> and your PRs can't quietly break.</span>
+          Understand your architecture
+          <span className={styles.headlineAccent}>while AI builds it.</span>
         </h1>
         <p className={styles.lede}>
-          ArchDoc keeps a model of your system next to the code, owned by the
-          people who build it. Your coding agent reads it before every edit and
-          checks its work against it after. You see the change on a map before
-          it merges.
+          Agents now write code faster than anyone can follow. ArchDoc keeps a
+          living map of your system next to the code: your agents read it
+          before every edit and keep it true as they go, so you always see
+          what your system is, what's changing, and why.
         </p>
         <div className={styles.ctas}>
           <Link className={clsx(styles.btn, styles.btnPrimary)} to="/docs/getting-started">
@@ -337,24 +367,24 @@ function Problem() {
     <section className={styles.section}>
       <div className="container">
         <p className={styles.kicker}>Why</p>
-        <h2 className={styles.h2}>Agents write code faster than anyone can follow the architecture.</h2>
+        <h2 className={styles.h2}>Your agents build fast. Your understanding has to keep up.</h2>
         <div className={styles.problemGrid}>
           <div>
-            <h3>Diagrams drift</h3>
-            <p>A wiki page is right the day it's drawn. After it's wrong a few times, nobody trusts it, and nobody updates it.</p>
+            <h3>You lose the picture</h3>
+            <p>An agent can touch five services in an afternoon. A week later, nobody on the team can say how the system fits together anymore.</p>
           </div>
           <div>
             <h3>Generated summaries have no owner</h3>
             <p>A summary says what the code does today. Nobody agreed to it, so it can't say what the code is supposed to do.</p>
           </div>
           <div>
-            <h3>Reviews miss the blast radius</h3>
-            <p>A diff shows lines. It doesn't show the critical journey a change sits on, or the email field now leaving the building.</p>
+            <h3>Diagrams drift</h3>
+            <p>A wiki page is right the day it's drawn. After it's wrong a few times, nobody trusts it, and nobody updates it.</p>
           </div>
         </div>
         <p className={styles.answer}>
-          ArchDoc's answer: a small model people own, kept in the repository,
-          read by agents, and checked against the code on every change.
+          ArchDoc's answer: a model people own and agents can read, kept in
+          the repository, updated with every change, and always there to explore.
         </p>
       </div>
     </section>
@@ -410,10 +440,10 @@ function Story() {
     <section className={styles.section}>
       <div className="container">
         <p className={styles.kicker}>Thirty seconds, real output</p>
-        <h2 className={styles.h2}>What your agent knows before it edits, and what the PR gets after.</h2>
+        <h2 className={styles.h2}>Your agent knows where it is. You know what it changed.</h2>
         <p className={styles.intro}>
           A shop's agent is asked to send each order to an analytics tool. Both
-          panels are real output from the CLI on a small repository.
+          panels are real ArchDoc output on a small repository.
         </p>
         <div className={styles.storyGrid}>
           <div className={styles.storyCard}>
@@ -425,8 +455,8 @@ function Story() {
           </div>
           <div className={styles.storyCard}>
             <div className={styles.storyHead}>
-              <span className={styles.step}>Before it merges</span>
-              <code>archdoc check --base main</code>
+              <span className={styles.step}>After it edits</span>
+              <code>archdoc_check</code>
             </div>
             <div className={styles.comment}>
               <p className={styles.verdict}>{block.headline}</p>
@@ -439,8 +469,8 @@ function Story() {
               </div>
             </div>
             <p className={styles.storyFoot}>
-              The agent sent the whole order anyway, email included. The PR
-              gets one comment, and it blocks.{' '}
+              The agent sent the whole order anyway, email included. The
+              check catches it before anyone has to.{' '}
               <Link to="pathname:///demo/#changes">Open this change in the explorer →</Link>
             </p>
           </div>
@@ -451,20 +481,20 @@ function Story() {
 }
 
 function Showcase() {
-  const [active, setActive] = useState(tabs[0].id);
+  const [active, setActive] = useState('overview');
   const tab = tabs.find((t) => t.id === active) ?? tabs[0];
   return (
     <section className={clsx(styles.section, styles.alt)}>
       <div className="container">
-        <p className={styles.kicker}>The explorer</p>
-        <h2 className={styles.h2}>Explore the system. Build the change. One map, shared with your agent.</h2>
+        <p className={styles.kicker}>See it as it's built</p>
+        <h2 className={styles.h2}>One map of your system, shared with your agent.</h2>
         <p className={styles.intro}>
           <code>archdoc view</code> opens it in your browser. Explore shows the
           system as the model describes it; Build is where you plan a change,
           triage a bug, and diff two branches, with your agent on the other end.
         </p>
         <div className={styles.tabs} role="tablist">
-          {(['Build', 'Explore'] as const).map((g) => (
+          {(['Explore', 'Build'] as const).map((g) => (
             <div key={g} className={styles.tabGroup}>
               <span className={styles.tabGroupLabel}>{g}</span>
               {tabs
@@ -575,7 +605,7 @@ function Start() {
       <div className="container">
         <div className={styles.split}>
           <div>
-            <h2 className={styles.h2}>Model your repository in one session.</h2>
+            <h2 className={styles.h2}>Map your system in one session. Keep up with it from then on.</h2>
             <p className={styles.ctaText}>
               Install the plugin, open a repository, and ask your agent to start
               an architecture model. It runs <code>archdoc init</code>, shapes
@@ -603,14 +633,14 @@ function Start() {
 export default function Home(): JSX.Element {
   return (
     <Layout
-      title="Architecture your AI agents can read, and your PRs can't quietly break"
-      description="ArchDoc keeps a human-owned architecture model next to the code. Your coding agent reads it before every edit, every pull request is checked against it, and you plan changes and triage bugs with your agent on one map.">
+      title="Understand your architecture while AI builds it"
+      description="ArchDoc keeps a living architecture map next to the code. Your AI agents read it before every edit and keep it true as they go, so you can explore your system, plan changes, and triage bugs with your agent on one map.">
       <Hero />
       <main>
         <Strip />
         <Problem />
-        <Loop />
         <Showcase />
+        <Loop />
         <Story />
         <Capabilities />
         <Model />
