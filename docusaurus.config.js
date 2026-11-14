@@ -25,6 +25,10 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap',
+  ],
+
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -99,11 +103,16 @@ const config = {
             label: 'Docs',
           },
           {to: '/docs/getting-started', label: 'Getting started', position: 'left'},
+          {to: '/docs/plan', label: 'Plan', position: 'left'},
+          {to: '/docs/triage', label: 'Triage', position: 'left'},
+          {to: '/docs/agents', label: 'Agents', position: 'left'},
           {to: '/blog', label: 'Blog', position: 'left'},
+          {to: 'pathname:///demo/', label: 'Live demo', position: 'right'},
           {
             href: repo,
             label: 'GitHub',
             position: 'right',
+            className: 'navbar-github-cta',
           },
         ],
       },
@@ -123,6 +132,8 @@ const config = {
             title: 'Surfaces',
             items: [
               {label: 'For agents', to: '/docs/agents'},
+              {label: 'Plan', to: '/docs/plan'},
+              {label: 'Triage', to: '/docs/triage'},
               {label: 'For reviewers', to: '/docs/reviewers'},
               {label: 'Explorer', to: '/docs/explorer'},
               {label: 'Landscape', to: '/docs/landscape'},
