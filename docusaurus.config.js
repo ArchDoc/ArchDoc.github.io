@@ -9,8 +9,8 @@ const repo = 'https://github.com/ArchDoc/archdoc';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'ArchDoc',
-  tagline: "Architecture your AI agents can read, and your PRs can't quietly break.",
-  favicon: 'img/favicon.ico',
+  tagline: 'Understand your architecture while AI builds it.',
+  favicon: 'img/archdoc-mark.svg',
 
   // Set the production url of your site here
   url: 'https://archdoc.github.io',
@@ -24,6 +24,10 @@ const config = {
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap',
+  ],
 
   i18n: {
     defaultLocale: 'en',
@@ -78,32 +82,37 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/archdoc_social_card.jpg',
+      image: 'img/archdoc-social-card.png',
       metadata: [
         {
           name: 'description',
           content:
-            'ArchDoc keeps a human-owned architecture model next to the code, and answers what a change affects for coding agents, reviewers, and everyone learning the system.',
+            'ArchDoc keeps a living architecture map next to the code, so you can understand your system while AI agents build it.',
         },
       ],
       navbar: {
+        title: 'ArchDoc',
         logo: {
-          alt: 'ArchDoc logo',
-          src: 'img/archdoc_logo.svg',
+          alt: 'ArchDoc',
+          src: 'img/archdoc-mark.svg',
         },
         items: [
+          {to: '/docs/explorer', label: 'Explore', position: 'left'},
+          {to: '/docs/triage', label: 'Triage', position: 'left'},
+          {to: '/docs/plan', label: 'Plan', position: 'left'},
+          {to: '/docs/getting-started', label: 'Get started', position: 'left'},
           {
             type: 'docSidebar',
             sidebarId: 'docsSidebar',
-            position: 'left',
+            position: 'right',
             label: 'Docs',
           },
-          {to: '/docs/getting-started', label: 'Getting started', position: 'left'},
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: 'pathname:///demo/', label: 'Live demo', position: 'right'},
           {
             href: repo,
             label: 'GitHub',
             position: 'right',
+            className: 'navbar-github-cta',
           },
         ],
       },
@@ -123,7 +132,8 @@ const config = {
             title: 'Surfaces',
             items: [
               {label: 'For agents', to: '/docs/agents'},
-              {label: 'For reviewers', to: '/docs/reviewers'},
+              {label: 'Plan', to: '/docs/plan'},
+              {label: 'Triage', to: '/docs/triage'},
               {label: 'Explorer', to: '/docs/explorer'},
               {label: 'Landscape', to: '/docs/landscape'},
             ],
