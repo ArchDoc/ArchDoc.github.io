@@ -453,7 +453,7 @@ function Triage() {
           </div>
           <Window
             src="/img/v1/triage.png"
-            alt="A Triage record drawn as a sequence: four steps across the agent, MCP, analyzers, and the model editor, with the root cause highlighted at step 3"
+            alt="A Triage record on the map: the outage alert mdm never sent, drawn in red, with what was observed and expected beside it"
             className={styles.showcaseShot}
           />
         </div>

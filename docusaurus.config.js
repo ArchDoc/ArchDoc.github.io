@@ -97,17 +97,16 @@ const config = {
           src: 'img/archdoc-mark.svg',
         },
         items: [
+          {to: '/docs/explorer', label: 'Explore', position: 'left'},
+          {to: '/docs/triage', label: 'Triage', position: 'left'},
+          {to: '/docs/plan', label: 'Plan', position: 'left'},
+          {to: '/docs/getting-started', label: 'Get started', position: 'left'},
           {
             type: 'docSidebar',
             sidebarId: 'docsSidebar',
-            position: 'left',
+            position: 'right',
             label: 'Docs',
           },
-          {to: '/docs/getting-started', label: 'Getting started', position: 'left'},
-          {to: '/docs/plan', label: 'Plan', position: 'left'},
-          {to: '/docs/triage', label: 'Triage', position: 'left'},
-          {to: '/docs/agents', label: 'Agents', position: 'left'},
-          {to: '/blog', label: 'Blog', position: 'left'},
           {to: 'pathname:///demo/', label: 'Live demo', position: 'right'},
           {
             href: repo,
